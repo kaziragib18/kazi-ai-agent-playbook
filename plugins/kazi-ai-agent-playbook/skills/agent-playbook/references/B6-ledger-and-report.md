@@ -1,7 +1,7 @@
 # B6. Ledger and report formats
 
 
-The ledger `docs/readiness-ledger.md` is the **only** status store (the project profile (`docs/agent-profile.md`) holds no statuses). Newest first, one line per item, `paths` = files the evidence depends on (used by token rule 13):
+The ledger `docs/readiness-ledger.md` is the **only** status store (the project profile (`docs/agent-profile.md`) holds no statuses). Newest first (add new lines at the top), one line per item; record N/A only when a reader would expect the item to apply (e.g. a flag is set but the code has none), `paths` = files the evidence depends on (used by token rule 13):
 
 ```
 <date> | SEC-50 | FAIL | L3 | no CSP header in host/framework config | paths: <config file> | owner: -
