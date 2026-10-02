@@ -16,7 +16,7 @@ Tag for every item: `ui` (UX-14/15 also need `public`).
 ## B. Requirements
 | ID | Lvl | Requirement | Check |
 |---|---|---|---|
-| UX-01 | L1 | Uses project design tokens; no new raw colors/spacing/fonts in components | `gg '#[0-9a-fA-F]{3,8}\b\|rgba?\(\|hsla?\(\|oklch\(' '*.tsx' '*.jsx' '*.vue' '*.svelte'` → only token files, OG/error pages that render outside the CSS pipeline |
+| UX-01 | L1 | Uses project design tokens; no new raw colors/spacing/fonts in components | `gg '#[0-9a-fA-F]{3,8}\b\|rgba?\(\|hsla?\(\|oklch\(' '*.tsx' '*.jsx' '*.ts' '*.js' '*.vue' '*.svelte' '*.astro' '*.html'` → only token files, OG/error pages that render outside the CSS pipeline |
 | UX-02 | L1 | Reuse existing components before creating new ones | graph search / `git grep` component name |
 | UX-03 | L2 | Every async surface has loading, empty (with next action), error (with retry), and disabled states | force each state in the browser |
 | UX-04 | L2 | Responsive at 390/768/1280, no horizontal scroll, tap targets >= 44px on touch | Playwright resize + screenshot |

@@ -13,6 +13,7 @@ project rules that override level: <non-negotiable invariants from the repo's ow
 ```
 
 ## Routing: changed path → modules (fill from recon routes and dirs)
+List only items with `Lvl <= level`; add higher-level items when the level is raised. Git is optional: without it, route by the files the task names.
 | Path glob | Modules (and item ranges) |
 |---|---|
 | <auth/session/middleware files> | sec(10-19) qa(09) |

@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code. Hard gates (a Done-when before any edit, an approved brief or spec before new products and features, ask before installs, deploys or anything irreversible), a task router, token and session rules, an idea-to-ship workflow, and 161 level-based readiness checks (security, testing, AI, legal, UX and accessibility, performance, ops, SEO, payments). Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, code review or a PR, a readiness, release or launch check, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.0
+# Kazi's AI Agent Playbook · v4.0.1
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -52,7 +52,7 @@ Other references, used when a playbook points to them: `B1-quickstart.md` (for t
 ## A4. Rules card (every task)
 
 - **Coding:** smallest correct change (not needed → already in this codebase → standard library → platform feature → installed dependency → new code; a new dependency needs the developer's OK) · match the surrounding code, no drive-by refactors · edit, don't rewrite · fix the root cause: find all callers first · narrow test first, full suite once at the end · loop guard: if the same approach fails twice, stop and switch method or ask; never weaken a test to get green · deep modules, glossary terms in names · update docs and the profile in the same commit. (`B8-coding-rules.md`)
-- **Tokens:** route and filter before reading · run recon once, then trust the profile · grep before read, read ±15-line windows · search tracked files only (`git grep`) · batch independent tool calls · bound outputs (head/tail, dot reporter) · use a cheap sub-agent for sweeps with a self-contained prompt, and don't redo its search · don't re-verify paths that haven't changed · keep reports short. (`B4-token-optimization.md`)
+- **Tokens:** route and filter before reading · run recon once, then trust the profile · grep before read, read ±15-line windows · search source files only (`gg.sh`; works with or without git) · batch independent tool calls · bound outputs (head/tail, dot reporter) · use a cheap sub-agent for sweeps with a self-contained prompt, and don't redo its search · don't re-verify paths that haven't changed · keep reports short. (`B4-token-optimization.md`)
 - **Sessions:** one task = one session or sub-agent · start fresh when the task changes, the context is about half full, or you notice yourself repeating · write a handoff of 10 lines or fewer to a file before ending · fixes and reviews go to a fresh agent. (`B7-sessions.md`)
 - **Skills:** use only skills listed in this session · one workflow pack, at most one style preset, at most one animation audit · if one is missing, use its fallback and ask once, batched. (`skill-registry.md`)
 - **Checks:** every Bash call starts in a fresh shell, so start each check batch with `gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs from the profile>"` and run the Checks in that same call. (`B3-check-protocol.md`)

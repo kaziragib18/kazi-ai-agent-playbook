@@ -2,10 +2,10 @@
 
 
 0. **Preflight (once per session, <= 3 tool calls)**
-   - Read the project profile (`docs/agent-profile.md`). Trust it (no re-recon) if `git diff --name-only <the project profile (`docs/agent-profile.md`) commit>..HEAD -- package.json pyproject.toml go.mod '*lock*' '*.config.*' .github` is empty and no new top-level source dir appeared. Otherwise re-run recon and update the project profile (`docs/agent-profile.md`).
+   - Read the project profile (`docs/agent-profile.md`). Trust it (no re-recon) if `git diff --name-only <the project profile (`docs/agent-profile.md`) commit>..HEAD -- package.json pyproject.toml go.mod '*lock*' '*.config.*' .github` is empty and no new top-level source dir appeared. **Not a git repo:** trust it unless `find . -maxdepth 2 \( -name package.json -o -name pyproject.toml -o -name go.mod -o -name '*lock*' -o -name '*.config.*' \) -newer docs/agent-profile.md` prints something. Otherwise re-run recon and update the project profile (`docs/agent-profile.md`).
    - Else run `bash <skill-dir>/scripts/recon.sh` (the skill's base directory is shown when the skill loads). Fill the project profile (`docs/agent-profile.md`) flags. If **level** is unknown, ask the dev (one question, §B5).
    - Read `references/skill-registry.md` §Preflight: resolve the skills you need against the skills actually listed in this session. Ask about missing ones **once, batched** (§B5).
-1. **Route.** `git diff --name-only <base>...HEAD` (or files the task names) → module via the routing table in the project profile (`docs/agent-profile.md`). Release candidate → all items with `Lvl <= level` and nothing else.
+1. **Route.** `git diff --name-only <base>...HEAD`, or the files the task names; without git, files changed since the last ledger entry (`find . -type f -newer docs/readiness-ledger.md -not -path '*/node_modules/*'`) → module via the routing table in the project profile (`docs/agent-profile.md`). Release candidate → all items with `Lvl <= level` and nothing else.
 2. **Filter.** Keep items where `Lvl <= level` AND tag is `all` or a set flag. Everything else is N/A. Do not discuss N/A items.
 3. **Verify.** Every Bash call starts in a fresh shell (functions and variables do not persist), so begin **each** check batch with:
    ```bash
