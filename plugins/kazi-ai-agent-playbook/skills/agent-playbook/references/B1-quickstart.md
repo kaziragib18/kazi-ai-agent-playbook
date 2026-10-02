@@ -8,6 +8,6 @@
 5. Write each task with an outcome, a Done-when and the files in scope (§B7 template). A vague task costs more tokens than a long precise one.
 6. For a release: **"Run the release check at level L3."** You get counts, failures with `file:line`, and one next action.
 7. At L2+, make the rules binding: pre-commit hook + CI required on the default branch (§B12).
-8. To update: `claude plugin marketplace update kazi-playbook`, then `claude plugin update kazi-ai-agent-playbook@kazi-playbook`, then restart Claude Code. `claude plugin list` shows the installed version (§B13).
+8. To update: `claude plugin marketplace update kazi-playbook`, then `claude plugin update kazi-ai-agent-playbook@kazi-playbook` (add `--scope project`, run inside the project, if it was installed for one project only), then restart Claude Code. `claude plugin list` shows the installed version (§B13).
 
 **You own:** the level, approval of briefs and specs (gates G2/G3), legal text, accounts for outside services (hosting, CI, error tracking, payments), deploys, and permission to install skills.

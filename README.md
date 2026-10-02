@@ -16,6 +16,8 @@ claude plugin marketplace update kazi-playbook
 claude plugin update kazi-ai-agent-playbook@kazi-playbook
 ```
 
+Installed for one project only (`Scope: project` in `claude plugin list`)? Run the update from inside that project with `--scope project`; the default updates the user scope and leaves the project on the old version.
+
 Check with `claude plugin list`; the version shown should match `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json`.
 
 ## Turn it on in a project
