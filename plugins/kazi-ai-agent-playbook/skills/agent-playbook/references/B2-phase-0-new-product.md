@@ -1,7 +1,7 @@
 # B2. Phase 0: new product from nothing (gate G2)
 
 
-For an empty or near-empty repo, or "build me X". Gate G2: only steps 1-2 run until the dev approves them. Each step leaves a file.
+For an empty or near-empty repo, or "build me X". Gate G2: only steps 1-2 run until the dev approves them. Draft **both** the brief and the stack decision, then ask for approval of both in one batched question (one round trip, not two). Exception: if an open question would change the stack (e.g. "does it need a server?"), ask that first and draft the stack after the answer. Each step leaves a file.
 
 | # | Step | Output | Done when |
 |---|---|---|---|

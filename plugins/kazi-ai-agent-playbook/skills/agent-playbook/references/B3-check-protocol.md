@@ -9,7 +9,7 @@
 2. **Filter.** Keep items where `Lvl <= level` AND tag is `all` or a set flag. Everything else is N/A. Do not discuss N/A items.
 3. **Verify.** Every Bash call starts in a fresh shell (functions and variables do not persist), so begin **each** check batch with:
    ```bash
-   gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs from the project profile>"
+   gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs or files from the project profile; never '.', which also matches docs that quote the Check patterns>"
    ```
    then run the Checks exactly as written, in the same Bash call. Tables escape `|` as `\|` (markdown). `gg` converts it back, so Checks can be copied verbatim. In any **non-`gg`** command, replace `\|` with `|` yourself. Never pipe into `gg` (`git grep` ignores stdin); filter with `| grep -iE` instead.
    Substitute placeholders (`<handler files>`, `<url>`) from recon/the project profile (`docs/agent-profile.md`). A Check that is prose only ("manual", "docs", "dev confirms") gives **UNKNOWN** unless you find `file:line` evidence. Never PASS from memory.

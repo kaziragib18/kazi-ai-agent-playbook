@@ -29,7 +29,12 @@ dep 'puppeteer|puppeteer-core|@sparticuz/chromium(-min)?' && printf 'render '
 [ "$(files '(^|/)(robots|sitemap)\.(ts|js|txt|xml)$')" -gt 0 ] && printf 'public '
 [ "$(files '(^|/)admin(/|$)')" -gt 0 ] && printf 'admin? '
 echo; echo "(not detectable: minors, lib -> ask dev)"
-echo "## source dirs"; d=$(ls -d app src lib pages components server api prisma supabase migrations scripts styles public 2>/dev/null | tr '\n' ' '); echo "${d:-. (source files at the root)}"
+echo "## source dirs"; d=$(ls -d app src lib pages components server api prisma supabase migrations scripts styles public 2>/dev/null | tr '\n' ' ')
+if [ -z "$d" ]; then
+  # Flat project: list root-level code files instead of "." so Checks don't match docs that quote their patterns.
+  d=$(lsf | grep -vE '/' | grep -E '\.(html|css|js|mjs|cjs|ts|tsx|jsx|vue|svelte|astro|py|go|rb|php|rs|java|kt|swift|sh)$' | tr '\n' ' ')
+  echo "${d:-(no source files found)}  (flat project: use these files as SRC, not '.')"
+else echo "$d"; fi
 echo "## routes/handlers"; echo "${R:-none}"
 echo "## pages"; files '(^|/)page\.(tsx|jsx|js)$|(^|/)pages/[^_].*\.(tsx|jsx|vue|astro)$|index\.astro$' | xargs echo count:
 echo "## ops/ci"; ls .github/workflows .github/dependabot.yml renovate.json vercel.json netlify.toml Dockerfile fly.toml .env.example 2>/dev/null | tr '\n' ' '; echo

@@ -8,7 +8,7 @@ level:     L1 | L2 | L3 | L4                 (ask the dev if unknown, §B5)
 type:      <saas | mvp | frontend | api | internal | ai app | library>
 flags:     <auth db api ai pay upload render public ui email minors admin lib>   (recon output + dev corrections)
 stack:     <framework, ORM, auth, host, DB tier>        (from recon; note platform limits such as function timeout, DB size, idle pause, commercial-use terms)
-src dirs:  <from recon; never assume names like components/ or src/>
+src dirs:  <from recon; never assume names like components/ or src/; flat project: list the code files, never ".">
 project rules that override level: <non-negotiable invariants from the repo's own docs, e.g. "run X regression after Y">
 ```
 
