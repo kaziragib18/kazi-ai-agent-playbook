@@ -8,6 +8,12 @@
 err() { echo "gg: bad pattern or path (exit 2): this is an ERROR, not 'no hits'. Escape literal ( ) [ ] { } . + ? as \\( \\) etc. Pattern: $p" >&2; exit 2; }
 o=(); while [[ $1 == -* ]]; do o+=("$1"); shift; done
 p="${1//\\|/|}"; shift
+# zsh (macOS default) does not word-split $SRC, so "a.js b.js" arrives as ONE argument. Split such
+# arguments when they are not a real path, so Checks behave the same in bash and zsh.
+args=(); for a in "$@"; do
+  if [[ $a == *' '* && ! -e $a ]]; then read -r -a parts <<< "$a"; args+=("${parts[@]}"); else args+=("$a"); fi
+done
+set -- "${args[@]}"
 if git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
   files=()
   while IFS= read -r -d '' f; do [ -f "$f" ] && files+=("$f"); done < <(git ls-files -z -co --exclude-standard -- "${@:-.}" 2>/dev/null)

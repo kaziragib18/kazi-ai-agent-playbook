@@ -7,6 +7,7 @@
 - **Measure tokens (optional):** when the tool shows usage, add `tokens: <n>` to the handoff note. Compare tasks of a similar size to find where context leaks.
 
 **Changelog**
+- v4.0.4 · 2026-10-02 · `gg` splits a space-separated `$SRC` that zsh passes as one argument (it silently returned "no match", a false PASS, in the macOS default shell).
 - v4.0.3 · 2026-10-02 · `gg`/recon search untracked files in a git repo with no commits (no more silent false PASS) and use grep for matching, so `\b` works on macOS · stale profile `commit: none` triggers re-recon · recon no longer prints `fatal: HEAD` before the first commit · flat projects get their code files as `SRC` instead of `.` · Phase 0 drafts brief and stack together and asks once · specs carry a status line (Draft → Approved → Built) and blocking risks must be fixed or accepted before the first edit · PRs re-check ledger lines whose paths changed · `gg` reports a bad pattern as an error (exit 2) instead of a silent no-match · ledger lines go on top, N/A only when non-obvious.
 - v4.0.2 · 2026-10-02 · preflight flags over-installed pick-one skills (style presets, workflow packs) · browser tools: serve static apps on localhost instead of `file:` · `gg` ignores missing paths without git (no false error) · QA-01/02 and SEC-01 work for static and non-git projects.
 - v4.0.1 · 2026-10-02 · scripts and freshness rules work without git (plain grep/find fallback) · UX-01 also scans .html/.js/.ts/.astro · profile routes only items at or below the level.
