@@ -9,7 +9,14 @@ claude plugin marketplace add kaziragib18/kazi-ai-agent-playbook
 claude plugin install kazi-ai-agent-playbook@kazi-playbook
 ```
 
-Inside a session the same works with `/plugin marketplace add …` and `/plugin install …`. Get updates with `claude plugin marketplace update kazi-playbook`.
+Inside a session the same works with `/plugin marketplace add …` and `/plugin install …`. Get updates (both steps; the first only refreshes the catalog, the second updates the installed plugin), then restart Claude Code:
+
+```bash
+claude plugin marketplace update kazi-playbook
+claude plugin update kazi-ai-agent-playbook@kazi-playbook
+```
+
+Check with `claude plugin list`; the version shown should match `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json`.
 
 ## Turn it on in a project
 
