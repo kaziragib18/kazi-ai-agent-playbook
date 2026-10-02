@@ -7,6 +7,7 @@
 - **Measure tokens (optional):** when the tool shows usage, add `tokens: <n>` to the handoff note. Compare tasks of a similar size to find where context leaks.
 
 **Changelog**
+- v4.0.2 · 2026-10-02 · preflight flags over-installed pick-one skills (style presets, workflow packs) · browser tools: serve static apps on localhost instead of `file:` · `gg` ignores missing paths without git (no false error) · QA-01/02 and SEC-01 work for static and non-git projects.
 - v4.0.1 · 2026-10-02 · scripts and freshness rules work without git (plain grep/find fallback) · UX-01 also scans .html/.js/.ts/.astro · profile routes only items at or below the level.
 - v4.0 · 2026-10-02 · core/playbook split (always-loaded part about 1.5k tokens) · hard gates G1-G6 · task router · Phase 0 for new products · launch and first-week loop · mechanical enforcement · product → skills table · versioning, calibration and pilot rules.
 - v3 · 2026-10-01 · modules with levels and tags · recon script · skill registry and budget · session hygiene · coding rules · idea → ship workflow · `gg` check helper (escaped pipes fixed) · motion rules.

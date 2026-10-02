@@ -22,7 +22,8 @@ At preflight the agent proposes the row that matches the brief or profile, compa
 
 1. List what exists: skills = the "available skills" list in the session context; MCP/tools = names in the tool list; deferred tools via the tool-search feature (Claude Code: `ToolSearch`); CLIs via `command -v gh vercel supabase pnpm npx rg`.
 2. For each **capability** in the table below that the routed modules need, find the first available provider. Capabilities with no provider are *missing*.
-3. Print one line per missing capability; ask once (§B5). Proceed with the fallback meanwhile for everything else.
+3. **Check for overlap.** Count installed skills in each pick-one group: workflow packs, style presets (taste, minimalist, premium, brutalist, …), animation audits. If a group has more than one, pick one for this project (match the brief's look, or the one already used), record it in the profile's *Decisions*, and add one line to the batched question: "N style presets are installed; I'm using X. The others load into every session; consider disabling them." Never uninstall anything yourself.
+4. Print one line per missing capability; ask once (§B5), together with any overlap line. Proceed with the fallback meanwhile for everything else.
 
 ## Capability → provider → fallback
 
@@ -45,7 +46,7 @@ Design, animation, prototype and UI-library rows live in `references/modules/ux.
 | Code-graph (callers, gating, architecture) | `codebase-memory` MCP (`search_graph`, `trace_path`) | `gg` + 15-line reads | `claude mcp add ...` then index the repo |
 | Library docs | `context7` MCP | Read the installed package's bundled docs/README for the exact version; say "unverified" if none | `claude mcp add` / plugin |
 | Broad file sweeps | `Explore` agent (small model) | Do the grep batch yourself | built-in |
-| Real-browser checks (screenshots, resize, a11y tree, console, network, offline) | Playwright MCP | `npx playwright` script, else mark UI items UNKNOWN | plugin / `claude mcp add playwright` |
+| Real-browser checks (screenshots, resize, a11y tree, console, network, offline) | Playwright MCP (it blocks `file:` URLs: serve the folder on localhost, e.g. `python3 -m http.server 8765 --bind 127.0.0.1` or the dev server; stop it afterwards and delete `.playwright-mcp/` artifacts) | `npx playwright` script, else mark UI items UNKNOWN | plugin / `claude mcp add playwright` |
 | Complete files, no "…rest unchanged" gaps | `full-output-enforcement` / `output-skill` | Instruction: write whole files or use exact-match edits; never placeholders | plugin |
 | Claude/Anthropic API code | `claude-api` | Read the provider's current docs for exact model IDs/params; flag unverified | built-in |
 | Docs / reports for humans | Artifact tool, `anthropic-skills:docs/pdf/docx/xlsx/pptx` | Markdown file | built-in |

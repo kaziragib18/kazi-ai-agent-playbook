@@ -10,7 +10,7 @@ Tag for every item: `ui` (UX-14/15 also need `public`).
 2. **Recon**: `git grep -nE` the token file(s) and the nearest existing component before writing UI (reuse > extend > create).
 3. **Direction (new screens only)**: one design skill (`impeccable`, plus at most one taste skill for marketing). Not stacked.
 4. **Build** with the project's styling system and tokens only.
-5. **Verify in a real browser**: screenshots at 390/768/1280, keyboard walk, console clean, empty/loading/error states forced. Confirm the dev-server port first (ports vary).
+5. **Verify in a real browser**: screenshots at 390/768/1280, keyboard walk, console clean, empty/loading/error states forced. Confirm the dev-server port first (ports vary). Browser tools usually block `file:` URLs: for a static app, serve it on localhost (`python3 -m http.server 8765 --bind 127.0.0.1`), stop the server afterwards, and delete tool artifacts such as `.playwright-mcp/`.
 6. **Audit**: states + a11y + copy (below), then update the token file / product doc in the same commit if a pattern was added.
 
 ## B. Requirements

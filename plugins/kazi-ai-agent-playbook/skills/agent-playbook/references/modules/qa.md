@@ -5,8 +5,8 @@ Run Checks with the `gg` helper (see `references/B3-check-protocol.md` step 3). 
 
 | ID | Lvl | Tag | Requirement | Check |
 |---|---|---|---|---|
-| QA-01 | L1 | all | One documented command runs the app and one runs tests | `package.json` scripts / README |
-| QA-02 | L1 | all | Typecheck + lint pass | project scripts; paste last lines of output |
+| QA-01 | L1 | all | One documented command runs the app and one runs tests | manifest scripts (`package.json`, `Makefile`, `pyproject.toml`) or, for a static/no-build app, the commands written in README or `CLAUDE.md` (e.g. "open index.html", "node test.js") |
+| QA-02 | L1 | all | Typecheck + lint pass (no-build static app: a syntax check such as `node --check <file>` plus the test command) | the project's commands; paste the last lines of output |
 | QA-03 | L2 | all | Core business logic (pure functions, reducers, calculators, parsers, migrations) has unit tests; a new bug fix ships with a test that failed before | recon test count; `git diff` includes test |
 | QA-04 | L2 | api | Each handler has tests for 401 unauthenticated, 400 invalid body, 403/404 someone else's object, 2xx happy path | recon `api route tests`; compare to route list |
 | QA-05 | L2 | db | Repository/DB tests run against a throwaway database, not prod | test config; env |

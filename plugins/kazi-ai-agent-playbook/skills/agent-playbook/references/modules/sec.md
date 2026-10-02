@@ -8,7 +8,7 @@ Checks use `git grep` (tracked files only, fast). `gg` = `git grep -nE`. Replace
 ## Secrets and config
 | ID | Lvl | Tag | Requirement | Check |
 |---|---|---|---|---|
-| SEC-01 | L1 | all | No secrets or `.env` in git | `git ls-files '.env*' '*/.env*'` → only `.env.example`; `gg 'AKIA[0-9A-Z]{16}\|sk_live_\|-----BEGIN [A-Z ]*PRIVATE\|eyJ[A-Za-z0-9_-]{30,}\.'` → none |
+| SEC-01 | L1 | all | No secrets or `.env` in git | git: `git ls-files '.env*' '*/.env*'` → only `.env.example`; no git yet: `find . -name '.env*' -not -path '*/node_modules/*'` and confirm `.gitignore` lists `.env` before the first commit; `gg 'AKIA[0-9A-Z]{16}\|sk_live_\|-----BEGIN [A-Z ]*PRIVATE\|eyJ[A-Za-z0-9_-]{30,}\.'` → none |
 | SEC-02 | L1 | all | Server secrets never reach client bundle (only public-prefixed vars `NEXT_PUBLIC_`/`VITE_`/`PUBLIC_` in client code) | [js] `gg 'process\.env\.[A-Z_]+' $(git grep -l 'use client' -- $SRC)` → public-prefixed only; `gg 'SERVICE_ROLE\|SECRET' $SRC` outside server files → none |
 | SEC-03 | L2 | all | `.env.example` lists every variable; env validated at boot (schema) so missing config fails fast | `gg -l 'createEnv\|envsafe\|z\.object\(.*process\.env\|parse\(process\.env' $SRC` → ≥ 1; compare `.env.example` keys to `gg -o 'process\.env\.[A-Z_]+' $SRC` |
 | SEC-04 | L3 | all | Secret scanning on (push protection / gitleaks in CI) and rotation steps documented | ls `.github`; ops doc |

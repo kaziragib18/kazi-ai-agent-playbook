@@ -1,6 +1,6 @@
 {
   "name": "kazi-ai-agent-playbook",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "Kazi's AI Agent Playbook: hard gates, task router, token and session rules, idea-to-ship workflow, and 161 level-based readiness checks.",
   "author": { "name": "Kazi Ragib" }
 }
