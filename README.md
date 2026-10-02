@@ -9,16 +9,22 @@ claude plugin marketplace add kaziragib18/kazi-ai-agent-playbook
 claude plugin install kazi-ai-agent-playbook@kazi-playbook
 ```
 
-Inside a session the same works with `/plugin marketplace add …` and `/plugin install …`. Get updates (both steps; the first only refreshes the catalog, the second updates the installed plugin), then restart Claude Code:
+Inside a session the same works with `/plugin marketplace add …` and `/plugin install …`.
+
+Leave out `--scope` (user scope, the default) so the plugin works in every project and updates need no extra flags. Use `--scope project` only if you want it in one repo.
+
+## Getting updates (teammates)
+
+You never need to uninstall and reinstall. Run both steps (the first refreshes the catalog, the second updates the installed plugin), then restart Claude Code:
 
 ```bash
 claude plugin marketplace update kazi-playbook
 claude plugin update kazi-ai-agent-playbook@kazi-playbook
 ```
 
-Installed for one project only (`Scope: project` in `claude plugin list`)? Run the update from inside that project with `--scope project`; the default updates the user scope and leaves the project on the old version.
-
-Check with `claude plugin list`; the version shown should match `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json`.
+- Installed for one project only (`Scope: project` in `claude plugin list`)? Run the update from inside that project and add `--scope project`. Without it the user scope is updated and the project stays on the old version.
+- Check with `claude plugin list`: the version should match the latest `version` in `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json` on GitHub.
+- Optional: run `/plugin` in Claude Code, open the `kazi-playbook` marketplace and turn on auto-update if your Claude Code version offers it. New versions then arrive on their own and only need a restart.
 
 ## Turn it on in a project
 
@@ -43,6 +49,14 @@ plugins/kazi-ai-agent-playbook/skills/agent-playbook/
   scripts/gg.sh            grep helper the checks use
 ```
 
-## Changing it
+## Publishing an update (maintainer)
 
-Edit files, bump `version` in `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json` and the SKILL.md header, add a changelog line in `references/B13-versioning.md`, then run `claude plugin validate .` and open a PR.
+1. Make the change on a branch.
+2. **Bump the version** (Claude Code detects updates by this number; if it stays the same, teammates may not get the new files):
+   - `version` in `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json` (patch `4.0.3 → 4.0.4` for fixes, minor `4.1.0` for new rules or checks, major `5.0.0` when gates or the protocol change)
+   - the version in the `SKILL.md` header
+3. Add one changelog line at the top of the list in `plugins/kazi-ai-agent-playbook/skills/agent-playbook/references/B13-versioning.md`.
+4. Validate: `claude plugin validate .` and `claude plugin validate plugins/kazi-ai-agent-playbook` must both pass.
+5. Merge to `main` and push.
+6. Tell the team to run the two commands in **Getting updates** and restart (not needed for anyone with auto-update on).
+7. Check one machine: `claude plugin list` shows the new version.
