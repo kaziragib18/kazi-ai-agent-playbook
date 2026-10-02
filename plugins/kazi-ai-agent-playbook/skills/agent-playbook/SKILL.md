@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code. Hard gates (a Done-when before any edit, an approved brief or spec before new products and features, ask before installs, deploys or anything irreversible), a task router, token and session rules, an idea-to-ship workflow, and 161 level-based readiness checks (security, testing, AI, legal, UX and accessibility, performance, ops, SEO, payments). Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, code review or a PR, a readiness, release or launch check, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.0.5
+# Kazi's AI Agent Playbook · v4.0.6
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -17,7 +17,7 @@ These exist because the most expensive mistakes agents make are building the wro
 - **G2 New product.** For an empty or near-empty repo, or "build me X": no feature code until the Phase 0 outputs (brief, stack decision, skeleton plan; `references/B2-phase-0-new-product.md`) are approved by the developer.
 - **G3 Agree before building anything users will notice.** Decide by what changes for the user, not by how small the diff is. Anything that adds or changes what a user sees or can do (a new button, option, sort, filter, field, page, message or flow), or touches the data model, auth, money or a public API, needs a short plan the developer approves before the first edit. For a small feature the plan is 3-6 lines in chat: what will change, how you'll both know it works, what you won't do; write it to `docs/specs/` after approval. Bigger features get the full spec (`references/B10-build-workflow.md` steps 1-3). Only changes with no visible effect skip this (a refactor, a typo, a dependency bump, restoring behavior that was already agreed): say how you'll know it's done and proceed. Keep the spec's status current (Draft → Approved → Built) and clear its blocking risks before the first edit.
 - **G4 Ask first** before installing anything, before outward-facing or irreversible actions (push, deploy, send, spend, delete data), and before legal text goes live. Ask once, batched; never ask what the project profile or recon already answers (`references/B5-asking-the-dev.md`).
-- **G5 Evidence before claims.** Done means the Done-when output was seen. Anything not checked is reported as UNKNOWN, never as PASS.
+- **G5 Evidence before claims.** Done means the Done-when output was seen. Anything not checked is reported as UNKNOWN, never as PASS. Never call a plan or spec "approved" unless its `**Status:**` line says Approved or the developer approved it in this session.
 - **G6 Precedence.** The developer's current instruction > the project's `CLAUDE.md` > this skill > other skills' defaults. The security floor (validated input, authorization on every object, no secrets in code, logs or prompts) is never traded for speed.
 
 ## A2. Two dials
@@ -26,7 +26,7 @@ These exist because the most expensive mistakes agents make are building the wro
 
 **Flags** (what the project contains): `auth db api ai pay upload render public ui email minors admin lib`. An item applies only if its tag is `all` or a set flag. `scripts/recon.sh` detects most flags as hints; the level, `minors` and `lib` come from the developer.
 
-Both live in the project profile, `docs/agent-profile.md` (template: `assets/profile-template.md`). Read it at the start of a session; if it is missing or stale, run the preflight first.
+Both live in the project profile, `docs/agent-profile.md` (template: `assets/profile-template.md`). Read it at the start of a session; if it is missing or stale, run the preflight first. If project files disagree (e.g. brief vs profile), the **profile wins** for level, flags and decisions, the **brief** for product scope; mention the mismatch once in plain words and fix the stale file after the developer confirms.
 
 ## A3. Task router
 
@@ -38,11 +38,12 @@ Classify the task, then open only what is listed (silently: never tell the devel
 | New product / empty repo | `references/B2-phase-0-new-product.md`, `references/skill-registry.md` §C1 | product brief for approval (G2) |
 | New feature | `references/B10-build-workflow.md` steps 1-4, modules from the profile's routing; check the brief's out-of-scope list first | out-of-scope note if it applies, then spec for approval (G3) |
 | Small change with **no visible effect** (refactor, typo, dependency bump, restoring agreed behavior) | this file only (+ the routed module if it touches sec, ai or pay) | how you'll know it's done |
-| Small feature (any visible change, however small) | this file (§A1 G3); first read the "Won'ts" / out-of-scope list in `docs/PRODUCT-BRIEF.md` if it exists | if the request is out of scope, the **first line** says so: "Your product brief lists X as out of scope, so adding it means updating the brief. Do you want that?"; then a 3-6 line plan for approval |
+| Small feature (any visible change, however small) | this file (§A1 G3); first read the "Won'ts" / out-of-scope list in `docs/PRODUCT-BRIEF.md` if it exists | if the request is out of scope, send **only** that question and stop: "Your product brief lists X as out of scope, so adding it means updating the brief. Do you want that?" (no plan yet; plan after a yes). Otherwise a 3-6 line plan for approval |
 | Bug | `references/B10-build-workflow.md` step 7 | failing reproduction |
 | UI / design | `references/modules/ux.md` (its §D lists design skills) | Done-when incl. screenshots |
 | Review or PR | `references/B10-build-workflow.md` steps 8-9, routed modules | findings / PR description |
 | Readiness or release check | `references/B3-check-protocol.md`, every module at or below the level, `references/B6-ledger-and-report.md` | ledger + report |
+| "How did the last check go?" (no new check asked for) | `references/B6-ledger-and-report.md` | the latest run block of the ledger, reported in words; no re-checking |
 | Launch / first week / ongoing | `references/B11-launch.md` | tickets |
 | "What should I install?" | `references/skill-registry.md` §C1 and §Skill budget | recommendation + what not to install |
 | Long task, context getting full | `references/B7-sessions.md` | handoff note, fresh session |
@@ -68,5 +69,5 @@ Most developers will never read this playbook. Everything you say must make sens
 - **When you ask a question**, say why the answer matters: "How strict should the checks be? A free beta with real users needs basic security and backups; a public paid launch also needs legal pages and monitoring."
 - **The level** is "how strict the checks are". Describe it as what it means ("a free beta with real users"), not as L1-L4. If you use the code at all, put it in brackets after the words: "a free beta (level L2)".
 - **Findings:** the problem in plain words, where it is, and the fix. An item ID may follow in brackets for lookup: "Buttons are 41px tall, too small to tap reliably on a phone; make them at least 44px (index.html:22) (UX-04)."
-- **First session in a project:** introduce how you will work, in three short lines: you will confirm what "done" looks like before changing code, you will ask before installing, deploying or anything irreversible, and you will show proof (test output, screenshots) for every claim.
+- **First session in a project** (no `docs/agent-profile.md` yet; skip this when a profile exists): introduce how you will work, in three short lines: you will confirm what "done" looks like before changing code, you will ask before installing, deploying or anything irreversible, and you will show proof (test output, screenshots) for every claim.
 - **Files are different:** the ledger, profile and specs keep the IDs, because they are records to look up. Pair every ID there with a plain description too.

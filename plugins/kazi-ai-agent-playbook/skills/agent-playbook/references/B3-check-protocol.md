@@ -2,6 +2,7 @@
 
 
 0. **Preflight (once per session, <= 3 tool calls)**
+   - If `docs/specs/` exists, read each spec's `**Status:**` line (`grep -n '^\*\*Status:\*\*' docs/specs/*.md`). A spec with no such line gets one from the evidence: the feature is in the code → `Built <commit>`; otherwise `Draft`. A spec still at Draft for something already in the code → `Built <commit>`. Never set `Approved` yourself. Mention any correction in one plain line.
    - Read the project profile (`docs/agent-profile.md`). Trust it (no re-recon) if `git diff --name-only <the project profile (`docs/agent-profile.md`) commit>..HEAD -- package.json pyproject.toml go.mod '*lock*' '*.config.*' .github` is empty and no new top-level source dir appeared. If the profile's `commit:` is `none` but the repo now has commits, it is stale: re-run recon and record the commit. **Not a git repo:** trust it unless `find . -maxdepth 2 \( -name package.json -o -name pyproject.toml -o -name go.mod -o -name '*lock*' -o -name '*.config.*' \) -newer docs/agent-profile.md` prints something. Otherwise re-run recon and update the project profile (`docs/agent-profile.md`).
    - Else run `bash <skill-dir>/scripts/recon.sh` (the skill's base directory is shown when the skill loads). Fill the project profile (`docs/agent-profile.md`) flags. If **level** is unknown, ask the dev (one question, §B5).
    - Read `references/skill-registry.md` §Preflight: resolve the skills you need against the skills actually listed in this session. Ask about missing ones **once, batched** (§B5).
