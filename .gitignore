@@ -1,0 +1,4 @@
+# Local test prompts and workspaces (they reference private projects)
+plugins/*/skills/*/evals/
+*-workspace/
+.DS_Store

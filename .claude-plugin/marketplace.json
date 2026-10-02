@@ -1,0 +1,12 @@
+{
+  "name": "kazi-playbook",
+  "owner": { "name": "Kazi Ragib" },
+  "description": "Team marketplace for Kazi's AI Agent Playbook.",
+  "plugins": [
+    {
+      "name": "kazi-ai-agent-playbook",
+      "source": "./plugins/kazi-ai-agent-playbook",
+      "description": "How AI agents plan, build, check and ship any product, with the developer in control."
+    }
+  ]
+}
