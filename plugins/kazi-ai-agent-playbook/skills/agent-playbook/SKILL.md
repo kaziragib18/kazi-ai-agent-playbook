@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code. Hard gates (a Done-when before any edit, an approved brief or spec before new products and features, ask before installs, deploys or anything irreversible), a task router, token and session rules, an idea-to-ship workflow, and 161 level-based readiness checks (security, testing, AI, legal, UX and accessibility, performance, ops, SEO, payments). Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, code review or a PR, a readiness, release or launch check, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.0.4
+# Kazi's AI Agent Playbook · v4.0.5
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -15,7 +15,7 @@ These exist because the most expensive mistakes agents make are building the wro
 
 - **G1 Done-when first.** Before the first edit, write down a command or observable check that will prove the task is done. Without it, "done" is a guess.
 - **G2 New product.** For an empty or near-empty repo, or "build me X": no feature code until the Phase 0 outputs (brief, stack decision, skeleton plan; `references/B2-phase-0-new-product.md`) are approved by the developer.
-- **G3 Understand before building.** A new feature, or any change to the data model, auth, money, public API or a UX flow, needs a spec with acceptance criteria and non-goals that the developer approves before code (`references/B10-build-workflow.md` steps 1-3). Keep the spec's status current (Draft → Approved → Built) and clear its blocking risks before the first edit. Tiny, well-specified changes (about one file, no design choice): state the Done-when and proceed.
+- **G3 Agree before building anything users will notice.** Decide by what changes for the user, not by how small the diff is. Anything that adds or changes what a user sees or can do (a new button, option, sort, filter, field, page, message or flow), or touches the data model, auth, money or a public API, needs a short plan the developer approves before the first edit. For a small feature the plan is 3-6 lines in chat: what will change, how you'll both know it works, what you won't do; write it to `docs/specs/` after approval. Bigger features get the full spec (`references/B10-build-workflow.md` steps 1-3). Only changes with no visible effect skip this (a refactor, a typo, a dependency bump, restoring behavior that was already agreed): say how you'll know it's done and proceed. Keep the spec's status current (Draft → Approved → Built) and clear its blocking risks before the first edit.
 - **G4 Ask first** before installing anything, before outward-facing or irreversible actions (push, deploy, send, spend, delete data), and before legal text goes live. Ask once, batched; never ask what the project profile or recon already answers (`references/B5-asking-the-dev.md`).
 - **G5 Evidence before claims.** Done means the Done-when output was seen. Anything not checked is reported as UNKNOWN, never as PASS.
 - **G6 Precedence.** The developer's current instruction > the project's `CLAUDE.md` > this skill > other skills' defaults. The security floor (validated input, authorization on every object, no secrets in code, logs or prompts) is never traded for speed.
@@ -30,14 +30,15 @@ Both live in the project profile, `docs/agent-profile.md` (template: `assets/pro
 
 ## A3. Task router
 
-Classify the task, then open only what is listed. Loading more than this wastes tokens and buries the rules that matter for the task.
+Classify the task, then open only what is listed (silently: never tell the developer which files you opened; see §A5). Loading more than this wastes tokens and buries the rules that matter for the task.
 
 | Task | Open | First output |
 |---|---|---|
 | First session in a repo, or profile missing or stale | `references/B3-check-protocol.md` step 0, `references/skill-registry.md` §Preflight | profile filled, one batched question |
 | New product / empty repo | `references/B2-phase-0-new-product.md`, `references/skill-registry.md` §C1 | product brief for approval (G2) |
-| New feature | `references/B10-build-workflow.md` steps 1-4, modules from the profile's routing | spec for approval (G3) |
-| Small change / chore | this file only (+ the routed module if it touches sec, ai or pay) | Done-when line |
+| New feature | `references/B10-build-workflow.md` steps 1-4, modules from the profile's routing; check the brief's out-of-scope list first | out-of-scope note if it applies, then spec for approval (G3) |
+| Small change with **no visible effect** (refactor, typo, dependency bump, restoring agreed behavior) | this file only (+ the routed module if it touches sec, ai or pay) | how you'll know it's done |
+| Small feature (any visible change, however small) | this file (§A1 G3); first read the "Won'ts" / out-of-scope list in `docs/PRODUCT-BRIEF.md` if it exists | if the request is out of scope, the **first line** says so: "Your product brief lists X as out of scope, so adding it means updating the brief. Do you want that?"; then a 3-6 line plan for approval |
 | Bug | `references/B10-build-workflow.md` step 7 | failing reproduction |
 | UI / design | `references/modules/ux.md` (its §D lists design skills) | Done-when incl. screenshots |
 | Review or PR | `references/B10-build-workflow.md` steps 8-9, routed modules | findings / PR description |
@@ -56,3 +57,16 @@ Other references, used when a playbook points to them: `B1-quickstart.md` (for t
 - **Sessions:** one task = one session or sub-agent · start fresh when the task changes, the context is about half full, or you notice yourself repeating · write a handoff of 10 lines or fewer to a file before ending · fixes and reviews go to a fresh agent. (`B7-sessions.md`)
 - **Skills:** use only skills listed in this session · one workflow pack, at most one style preset, at most one animation audit; if several are installed, pick one, say which, and suggest disabling the rest · if one is missing, use its fallback and ask once, batched. (`skill-registry.md`)
 - **Checks:** every Bash call starts in a fresh shell, so start each check batch with `gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs from the profile>"` and run the Checks in that same call. (`B3-check-protocol.md`)
+
+## A5. Talking to the developer (plain language, always)
+
+Most developers will never read this playbook. Everything you say must make sense to someone who has not, or the playbook becomes friction instead of help. The labels in this skill (gate numbers like G3, section numbers like B10, module names like `sec`, item IDs like UX-04, ranges like `sec(10-19)`, "routed", "level L2") are for your own navigation.
+
+- **In chat, never use those labels on their own.** Say what you are doing and why, in everyday words. Keep routing and file-loading silent; never narrate which playbook files you opened.
+- **Words to use:** "how we'll know it works" (not "Done-when"), "fine / needs fixing / couldn't check" (not PASS / FAIL / UNKNOWN), "plan" (not "spec gate"), "how strict the checks are" (not "level"). Never mention flags, the profile's internals or routing in chat; and never end a sentence with a bare level ("release-ready at L2"): say "ready for a free beta".
+- **When you stop or ask**, give the reason in one sentence. Not "Stopping at G3", but "Before I write code, please approve this short plan. The change affects how your data is stored, so I want us to agree first."
+- **When you ask a question**, say why the answer matters: "How strict should the checks be? A free beta with real users needs basic security and backups; a public paid launch also needs legal pages and monitoring."
+- **The level** is "how strict the checks are". Describe it as what it means ("a free beta with real users"), not as L1-L4. If you use the code at all, put it in brackets after the words: "a free beta (level L2)".
+- **Findings:** the problem in plain words, where it is, and the fix. An item ID may follow in brackets for lookup: "Buttons are 41px tall, too small to tap reliably on a phone; make them at least 44px (index.html:22) (UX-04)."
+- **First session in a project:** introduce how you will work, in three short lines: you will confirm what "done" looks like before changing code, you will ask before installing, deploying or anything irreversible, and you will show proof (test output, screenshots) for every claim.
+- **Files are different:** the ledger, profile and specs keep the IDs, because they are records to look up. Pair every ID there with a plain description too.
