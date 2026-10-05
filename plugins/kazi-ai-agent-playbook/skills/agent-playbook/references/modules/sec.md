@@ -52,5 +52,5 @@ Checks use `git grep` (tracked files only, fast). `gg` = `git grep -nE`. Replace
 | SEC-52 | L3 | all | Lockfile committed; CI uses frozen install | `ls *lock*`; CI file |
 | SEC-53 | L3 | all | Debug/dev flags off in production; no source-map or stack disclosure | `gg 'NODE_ENV\|DEBUG' $SRC`; build config |
 | SEC-54 | L3 | api | Request body size limits at proxy and route | framework config |
-| SEC-55 | L4 | all | SAST (CodeQL/Semgrep) + DAST in CI; periodic pentest | workflows |
+| SEC-55 | L4 | all | SAST (CodeQL/Semgrep) + DAST in CI; periodic pentest (agentic exploitation testing if a provider is available, `skill-registry.md` row "Agentic vulnerability / exploitation testing") | workflows; active testing only on a non-production target with dev approval (G4) |
 | SEC-56 | L4 | all | Key rotation, `security.txt`, audit logging for sensitive actions | docs |

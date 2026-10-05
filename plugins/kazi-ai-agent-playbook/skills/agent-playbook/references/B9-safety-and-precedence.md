@@ -5,6 +5,8 @@
 
 **Keep instruction files lean (they are loaded every session):** under ~150 lines; link to docs instead of pasting them; commands, invariants and gotchas only; no history or changelogs; prune stale lines when noticed; edits take effect next session, so make them at handoff, in the same commit as the change that motivated them. Project facts that took effort to discover belong in the project profile (`docs/agent-profile.md`) or the project docs, not in the agent's head.
 
+**Creating or editing `CLAUDE.md`/`AGENTS.md`:** these are dev-owned even when the agent drafts them (new product repo setup, `B2` step 3; backfill on an existing repo, `B16` §2). Always ask first (`B5`) before creating one or restructuring an existing one; adding the single `B1` pointer line to an already-dev-written file does not need to wait for a reply, but a full draft does.
+
 **Git and safety:** one branch per task; small commits in the repo's message style; follow the repo's attribution rule; `git status` before anything that could discard work; never force-push, reset hard, or delete data without explicit approval; never push, deploy, send, or spend money unasked; never print or paste `.env` contents or secrets into tools; commit only what the task changed.
 
 **Cost visibility:** at the start of a long task, check the tool's context/usage view; at roughly half, hand off and start fresh (§B7). Reduce permission prompts by allow-listing read-only commands (project settings), never by disabling the sandbox.

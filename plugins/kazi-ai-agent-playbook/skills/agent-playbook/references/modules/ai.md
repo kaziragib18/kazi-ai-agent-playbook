@@ -18,6 +18,7 @@ Use the `claude-api` skill (or the provider's current docs) for exact model IDs 
 | AI-07 | L2 | Output rendered as text or a sanitized structure, never as raw HTML/markdown with HTML enabled | see SEC-32 |
 | AI-08 | L2 | Retries with backoff only for 429/5xx/timeouts; none for 4xx; user-visible failure state | provider wrapper |
 | AI-09 | L2 | Minimize personal data sent to the model; strip fields not needed (contact info, IDs) | prompt builder |
+| AI-16 | L2 | Spend is rolled up, not just logged: total AI/provider cost per day and per week, and per user, can be produced on demand (provider usage dashboard or a query over the usage records AI-04 already keeps), and a monthly budget is recorded in the profile's *Decisions*. Reviewed weekly (§B11) | dev confirms where the numbers come from, or `gg 'usage\|cost\|tokens' <usage/billing files>` finds the roll-up query; budget line present in the profile |
 | AI-10 | L3 | Disclose what is sent to which provider, retention/training terms, and opt-out if offered, in the privacy policy | privacy page |
 | AI-11 | L3 | Golden-set evals (10-30 cases) run on prompt/model change; record pass rate | `evals/` or test dir |
 | AI-12 | L3 | Prompts/responses logged without PII, with token counts and cost per call | logger |

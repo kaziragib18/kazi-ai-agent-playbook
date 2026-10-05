@@ -10,6 +10,7 @@ flags:     <auth db api ai pay upload render public ui email minors admin lib>  
 stack:     <framework, ORM, auth, host, DB tier>        (from recon; note platform limits such as function timeout, DB size, idle pause, commercial-use terms)
 src dirs:  <from recon; never assume names like components/ or src/; flat project: list the code files, never ".">
 project rules that override level: <non-negotiable invariants from the repo's own docs, e.g. "run X regression after Y">
+docs:      brief=<ok|stale|missing|backfilled> arch=<ok|stale|missing|backfilled> essentials=<ok|stale|missing|backfilled> agents-claude=<ok|missing>   (filled by preflight §B3 step 0 / backfilled per §B16)
 ```
 
 ## Routing: changed path → modules (fill from recon routes and dirs)

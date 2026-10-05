@@ -18,5 +18,5 @@ Run Checks with the `gg` helper (see `references/B3-check-protocol.md` step 3). 
 | OPS-11 | L3 | db | Migrations: forward-only, reviewed, reversible plan or expand/contract; applied before/with deploy; RLS/policies re-applied if managed outside the ORM | migration dir |
 | OPS-12 | L3 | all | Cost guards: provider spend alerts, per-user caps (AI/export/storage), kill switches via env/flag | config |
 | OPS-13 | L3 | all | Feature flags / kill switches: covered by OPS-12 | see OPS-12 |
-| OPS-14 | L3 | all | Runbook: top 5 incidents (DB down, auth outage, AI provider down, bad deploy, leaked key) with first action | ops doc |
+| OPS-14 | L3 | all | Runbook: top 5 incidents (DB down, auth outage, AI provider down, bad deploy, leaked key) with first action; the response flow itself is `B18-incident-response.md` | ops doc |
 | OPS-15 | L4 | all | SLOs, on-call, status page, DR plan with RPO/RTO tested | docs |

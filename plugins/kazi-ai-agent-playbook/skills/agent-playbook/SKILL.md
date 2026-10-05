@@ -1,9 +1,9 @@
 ---
 name: agent-playbook
-description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code. Hard gates (a Done-when before any edit, an approved brief or spec before new products and features, ask before installs, deploys or anything irreversible), a task router, token and session rules, an idea-to-ship workflow, and 161 level-based readiness checks (security, testing, AI, legal, UX and accessibility, performance, ops, SEO, payments). Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, code review or a PR, a readiness, release or launch check, choosing which skills or tools to install, or handing off a long session.
+description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code. Hard gates (a Done-when before any edit, an approved brief or spec before new products and features, ask before installs, deploys or anything irreversible), a task router, token and session rules, an idea-to-ship workflow, architecture-doc generation and drift control, mid-project onboarding with doc backfill for existing codebases, a per-session model-fit check before the first edit, incident response, worked check translations for Python, Go, Rails and Laravel, rules for several devs or agents on one repo, and 162 level-based readiness checks (security, testing, AI, legal, UX and accessibility, performance, ops, SEO, payments). Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, jumping into an existing/unfamiliar codebase, code review or a PR, a readiness, release or launch check, choosing which skills or tools to install, choosing which model to run a task on, or handing off a long session, or responding to a production incident.
 ---
 
-# Kazi's AI Agent Playbook · v4.0.6
+# Kazi's AI Agent Playbook · v4.3.0
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -35,6 +35,7 @@ Classify the task, then open only what is listed (silently: never tell the devel
 | Task | Open | First output |
 |---|---|---|
 | First session in a repo, or profile missing or stale | `references/B3-check-protocol.md` step 0, `references/skill-registry.md` §Preflight | profile filled, one batched question |
+| First session in an existing repo with no/partial product or architecture docs (not empty, so not Phase 0) | `references/B16-mid-project-onboarding.md`, then `references/B15-architecture-docs.md` for the doc shape | one-line note on what's being backfilled, then proceed with the actual task |
 | New product / empty repo | `references/B2-phase-0-new-product.md`, `references/skill-registry.md` §C1 | product brief for approval (G2) |
 | New feature | `references/B10-build-workflow.md` steps 1-4, modules from the profile's routing; check the brief's out-of-scope list first | out-of-scope note if it applies, then spec for approval (G3) |
 | Small change with **no visible effect** (refactor, typo, dependency bump, restoring agreed behavior) | this file only (+ the routed module if it touches sec, ai or pay) | how you'll know it's done |
@@ -45,19 +46,21 @@ Classify the task, then open only what is listed (silently: never tell the devel
 | Readiness or release check | `references/B3-check-protocol.md`, every module at or below the level, `references/B6-ledger-and-report.md` | ledger + report |
 | "How did the last check go?" (no new check asked for) | `references/B6-ledger-and-report.md` | the latest run block of the ledger, reported in words; no re-checking |
 | Launch / first week / ongoing | `references/B11-launch.md` | tickets |
+| Something broke in production (errors spiking, core flow or payments down, bad deploy, leaked key) | `references/B18-incident-response.md` | severity + the proposed containment step, for approval |
 | "What should I install?" | `references/skill-registry.md` §C1 and §Skill budget | recommendation + what not to install |
 | Long task, context getting full | `references/B7-sessions.md` | handoff note, fresh session |
 | Setting up hooks or CI | `references/B12-enforcement.md` | config for approval |
 
-Other references, used when a playbook points to them: `B1-quickstart.md` (for the developer), `B4-token-optimization.md`, `B8-coding-rules.md`, `B9-safety-and-precedence.md`, `B13-versioning.md`, `B14-improving.md`. Modules: `references/modules/{sec,qa,ai,legal,ux,perf,ops,seo,pay}.md`.
+Other references, used when a playbook points to them: `B1-quickstart.md` (for the developer), `B4-token-optimization.md`, `B8-coding-rules.md`, `B9-safety-and-precedence.md`, `B13-versioning.md`, `B14-improving.md`, `B15-architecture-docs.md`, `B16-mid-project-onboarding.md`, `B17-model-fit.md`, `B18-incident-response.md`, `stack-translations.md` (non-JS/TS stacks). Modules: `references/modules/{sec,qa,ai,legal,ux,perf,ops,seo,pay}.md`.
 
 ## A4. Rules card (every task)
 
-- **Coding:** smallest correct change (not needed → already in this codebase → standard library → platform feature → installed dependency → new code; a new dependency needs the developer's OK) · match the surrounding code, no drive-by refactors · edit, don't rewrite · fix the root cause: find all callers first · narrow test first, full suite once at the end · loop guard: if the same approach fails twice, stop and switch method or ask; never weaken a test to get green · deep modules, glossary terms in names · update docs and the profile in the same commit. (`B8-coding-rules.md`)
+- **Coding:** smallest correct change (not needed → already in this codebase → standard library → platform feature → installed dependency → new code; a new dependency needs the developer's OK) · match the surrounding code, no drive-by refactors · edit, don't rewrite · fix the root cause: find all callers first · narrow test first, full suite once at the end · loop guard: if the same approach fails twice, stop and switch method or ask; never weaken a test to get green · deep modules, glossary terms in names · update docs and the profile in the same commit, including `ARCHITECTURE-ESSENTIALS.md` whenever the change touches an invariant (`B15-architecture-docs.md`). (`B8-coding-rules.md`)
 - **Tokens:** route and filter before reading · run recon once, then trust the profile · grep before read, read ±15-line windows · search source files only (`gg.sh`; works with or without git) · batch independent tool calls · bound outputs (head/tail, dot reporter) · use a cheap sub-agent for sweeps with a self-contained prompt, and don't redo its search · don't re-verify paths that haven't changed · keep reports short. (`B4-token-optimization.md`)
 - **Sessions:** one task = one session or sub-agent · start fresh when the task changes, the context is about half full, or you notice yourself repeating · write a handoff of 10 lines or fewer to a file before ending · fixes and reviews go to a fresh agent. (`B7-sessions.md`)
 - **Skills:** use only skills listed in this session · one workflow pack, at most one style preset, at most one animation audit; if several are installed, pick one, say which, and suggest disabling the rest · if one is missing, use its fallback and ask once, batched. (`skill-registry.md`)
 - **Checks:** every Bash call starts in a fresh shell, so start each check batch with `gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs from the profile>"` and run the Checks in that same call. (`B3-check-protocol.md`)
+- **Model fit:** once per fresh session, before the first edit, check the task's gate tier/blast radius/level against the current model; mismatch gets one plain-language line, dev decides, never a block. (`B17-model-fit.md`)
 
 ## A5. Talking to the developer (plain language, always)
 
