@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code: hard gates, a task router and level-based readiness checks. Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, joining an existing or unfamiliar codebase, code review or a PR, a readiness, release or launch check, a production incident, choosing which skills, tools or model to use, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.3.1
+# Kazi's AI Agent Playbook · v4.3.2
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -31,6 +31,8 @@ Both live in the project profile, `docs/agent-profile.md` (template: `assets/pro
 ## A3. Task router
 
 Classify the task, then open only what is listed (silently: never tell the developer which files you opened; see §A5). Loading more than this wastes tokens and buries the rules that matter for the task.
+
+**Setup comes first.** Before the task's own row: if `docs/agent-profile.md` is missing or stale, run the first row; if the repo is not empty but has no product brief or architecture summary, run the existing-repo row. For a tiny task, instead say in one line what is missing and offer to draft it, then do the task.
 
 | Task | Open | First output |
 |---|---|---|

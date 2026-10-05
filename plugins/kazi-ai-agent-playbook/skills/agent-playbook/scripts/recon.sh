@@ -16,6 +16,9 @@ files() { lsf | grep -ciE -- "$1"; }
 echo "## stack"; ls $M 2>/dev/null | tr '\n' ' '; for p in pnpm-lock.yaml yarn.lock package-lock.json bun.lockb uv.lock poetry.lock; do [ -f $p ] && printf 'pm:%s ' $p; done; echo
 echo -n "framework: "; for f in next nuxt @remix-run/react astro @sveltejs/kit svelte vue react express fastify hono @nestjs/core django flask fastapi rails laravel/framework gin-gonic/gin; do dep "$f" && printf '%s ' "$f"; done; echo
 R=$(lsf | grep -E '(^|/)(route\.(ts|js)|views\.py|urls\.py)$|(^|/)pages/api/|controllers?/' | head -40)
+# Routes declared in code rather than by file name (Flask/FastAPI decorators, Go handlers, Laravel route files).
+R2=$(lsf | grep -E '\.(py|go|php)$' | while IFS= read -r f; do grep -qE '@[A-Za-z_]+\.(get|post|put|patch|delete|route|api_route)\(|APIRouter\(|HandleFunc\(|\.(GET|POST|PUT|PATCH|DELETE)\("|Route::(get|post|put|patch|delete|resource)\(' "$f" 2>/dev/null && echo "$f"; done)
+R=$(printf '%s\n%s\n' "$R" "$R2" | grep -v '^$' | sort -u | head -40)
 echo -n "flags: "
 dep 'supabase|@supabase/[a-z-]+|next-auth|@auth/[a-z-]+|auth0|@clerk/[a-z-]+|firebase|passport|lucia|better-auth|devise|django-allauth' && printf 'auth '
 dep 'prisma|@prisma/client|drizzle-orm|typeorm|sequelize|mongoose|knex|pg|postgres|mysql2|sqlalchemy|psycopg2?|gorm|activerecord' && printf 'db '

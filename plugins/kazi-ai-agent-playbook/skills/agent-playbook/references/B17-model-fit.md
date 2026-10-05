@@ -36,3 +36,7 @@ Then **proceed on the current model** if the dev doesn't respond or says to cont
 ## What this is not
 
 Not a replacement for `B4`'s sub-agent model rule (that still applies to delegated sweeps regardless of what the primary session is running on). Not a gate like G1-G6 — nothing here blocks an edit; a dev who says "continue anyway" is answered, not overridden. Not a judgment on the dev's choice of model for the session as a whole (they may be on a fixed plan/budget) — one line, stated once, dropped if unanswered.
+
+## Known limit (tested 2026-10-05)
+
+In six headless runs on Haiku with a task that changes stored data, the agent never made this recommendation, whether the rule sat in the rules card, at the top of the gates or inside the plan checklist. Larger models follow the rest of the playbook but have nothing to recommend here. Treat this section as guidance for strong models and for the developer, not as a safeguard: the reliable version is mechanical (a hook that reads the session's model and the changed paths), not an instruction.
