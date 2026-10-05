@@ -100,7 +100,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
       <tr><td>25</td><td>Quickstart and honest limits</td></tr>
     </tbody></table></div>
   </div>
-  <div class="foot"><span>Version v4.3.3 · 2026-10-05 · Claude Code plugin: <code>github.com/kaziragib18/kazi-ai-agent-playbook</code></span></div>
+  <div class="foot"><span>Version v4.4.0 · 2026-10-05 · Claude Code plugin: <code>github.com/kaziragib18/kazi-ai-agent-playbook</code></span></div>
 </section>
 
 <!-- 2 · WHY IT EXISTS -->
@@ -121,7 +121,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>Teams</td><td>Two agents edit the same files and overwrite each other's records.</td><td>Tasks are claimed with an owner, each agent works on its own branch or worktree, and shared files merge by rule.</td></tr>
     <tr><td>How it talks to you</td><td>Jargon and internal labels in every message.</td><td>Plain words ("fine / needs fixing / couldn't check", "ready for a free beta"); IDs stay in the files.</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 3 · HOW THE SKILL WORKS -->
@@ -150,7 +150,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>Files in your repo</td><td><code>docs/agent-profile.md</code>, <code>docs/readiness-ledger.md</code>, product brief, specs, <code>ARCHITECTURE.md</code>, <code>ARCHITECTURE-ESSENTIALS.md</code>, glossary, plans, incident notes</td><td>So any new session continues where the last one stopped</td></tr>
   </tbody></table>
   <div class="callout">Updates are central: when the playbook improves, the plugin repo gets a new version and everyone runs <code>claude plugin marketplace update kazi-playbook</code> then <code>claude plugin update kazi-ai-agent-playbook@kazi-playbook</code>, and restarts Claude Code. Nobody copies files between projects.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 4 · WHY IT HELPS -->
@@ -163,7 +163,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>Claims come with proof</td><td>"Done" always comes with command output, screenshots or <code>file:line</code>. Anything unchecked is reported as "couldn't check".</td><td>Live test: it ran the app's tests and a real browser before reporting; the result was reproduced independently.</td></tr>
     <tr><td>You stay in control</td><td>Installs, pushes, deploys, production actions, spending and live legal text always wait for your OK, asked once in one batch.</td><td>Every run stopped at the approval points; nothing was installed or pushed on its own.</td></tr>
     <tr><td>It speaks your language</td><td>"I checked 24 things for a free beta: 18 are fine, 4 need fixing", not "PASS 18 / FAIL 4 at L2".</td><td>Added after a live test showed gate and item labels leaking into chat (v4.0.5).</td></tr>
-    <tr><td>Less waste</td><td>The core is small; only the needed files open; the project is scanned once and remembered; checks are single greps.</td><td>v4.0 measurement: same token cost as without the skill (+2%) for a much higher pass rate. Re-measure on v4.3: the core has grown since.</td></tr>
+    <tr><td>Fewer wasted tokens, but not cheaper per task</td><td>The core is small; only the needed files open; the project is scanned once and remembered; checks are single greps.</td><td>Measured Oct 2026 on a small feature (v4.4.0, 3 runs per side): the playbook used about <strong>48% more tokens and 40% more cost</strong> than no playbook ($0.94 vs $0.67 per feature), because it stops for a plan and updates the docs. The older "+2%" figure was v4.0 on different tasks. Its savings come from avoided rework, which this test doesn't capture.</td></tr>
     <tr><td>Quality sized to the stakes</td><td>Security, testing, accessibility, legal, ops and SEO checks apply automatically, but only at your project's level.</td><td>Readiness test: clear totals and one next action, plus a server-side SSRF risk the baseline missed.</td></tr>
     <tr><td>Same result for every teammate</td><td>The same task gets the same gates, files and skills whoever runs it; missing skills fall back instead of blocking.</td><td>Skill selection resolved against a real session; every skill that was not installed had a stated fallback.</td></tr>
     <tr><td>Work survives between sessions</td><td>Short sessions with a 10-line handoff file; the next session starts from the profile, plan and architecture docs, not from scratch.</td><td>The build step worked from the saved brief and stack decision, and recorded its one change of plan in the decision file.</td></tr>
@@ -173,7 +173,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <div><b>Triggers by itself</b>From a plain "Start Phase 0" prompt, the first thing Claude did was load the skill; no mention of it was needed.</div>
     <div><b>Fixed from real use</b>v4.0.1 to v4.0.6 came from live tests; v4.1 to v4.3 from a gap review against the full product lifecycle.</div>
   </div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 5 · ORGANIZED -->
@@ -191,7 +191,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
   </tbody></table>
   <div class="callout">Reading in slices is part of the protocol: the router names one file per task, and checks search with one <code>gg</code> call, so the agent never pays for the whole ~30k-token skill.</div>
   <p class="lead" style="margin-top:8px">Your repo holds the state: <code>docs/readiness-ledger.md</code> (the only place check results are stored, one line per item, a header per run), the filled profile, the product brief, specs with a fixed <code>**Status:**</code> line, the architecture docs, plans and the glossary. Any new session can resume from them.</p>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 6 · EVERY SESSION -->
@@ -218,7 +218,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>Prove</td><td>Re-runs the failing check plus tests, lint and typecheck; quotes the output.</td><td>Evidence, never "should work".</td></tr>
     <tr><td>Report</td><td>Totals in words, each problem with where and the fix, what it couldn't check, the one next step, decisions waiting on you.</td><td>A short report you can act on in a minute.</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 7 · TWO DIALS -->
@@ -250,7 +250,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     </div>
   </div>
   <div class="callout">Example: a free MVP with sign-in and a database (free beta; <code>ui auth db api</code>) never sees payment, email, minors or launch-and-above items. A static landing page (<code>ui public</code>) never sees database or auth items. If the brief and the profile disagree, the profile wins for level and decisions, the brief for product scope.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 8 · GATES + ROUTER -->
@@ -291,7 +291,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
       </tbody></table>
     </div>
   </div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 9 · PHASE 0 -->
@@ -313,7 +313,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
   <table><thead><tr><th style="width:26%">Criteria, in order</th><th>Defaults the agent proposes</th></tr></thead><tbody>
     <tr><td>1 Team familiarity → 2 fit for the flags → 3 hosting limits and cost → 4 lock-in and exit path → 5 maturity and docs</td><td>Boring, well-documented tools · one language end to end · managed services over self-hosting up to a public launch · payment and AI providers confirmed for your country and regions · no microservices, queues or caches before a measured need.</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 10 · JOINING AN EXISTING PROJECT -->
@@ -335,7 +335,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td><code>CLAUDE.md</code> / <code>AGENTS.md</code></td><td>Minimal version only: verified commands, stack, pointer to the essentials doc</td><td><span class="pill approve">ask first</span> These are yours; an existing file only gets the one pointer line</td></tr>
   </tbody></table>
   <div class="callout">Every drafted doc starts with <code>&lt;!-- Backfilled from code on &lt;date&gt;; dev: please correct --&gt;</code>, removed once you confirm it. The profile's <code>docs:</code> line records what exists, so the check is not repeated every session. For a big feature or rewrite on top of an unconfirmed draft, the agent asks you to confirm the draft first.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 11 · ARCHITECTURE DOCS -->
@@ -354,7 +354,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>End of a long session</td><td>The handoff note says whether the essentials doc still matches what was built; if not, fixing it is the first line of the next task.</td></tr>
     <tr><td>Your project has its own convention</td><td>Your names, format and rules win (for example a <code>CLAUDE.md</code> that says which docs to keep current). The playbook only sets the floor for projects that have none.</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 12 · FEATURE WORKFLOW -->
@@ -375,7 +375,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>10</td><td>Design upkeep</td><td>Periodic architecture survey; prefer deep modules with small interfaces; dead-code sweep.</td><td>Ranked refactor tickets</td><td>improve-codebase-architecture, ponytail-audit</td></tr>
     <tr><td>11</td><td>Retro</td><td>What wasted time or tokens → one concrete change to rules, profile or skills.</td><td>1-3 committed lines</td><td>retro · by hand</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 13 · MODULES -->
@@ -395,7 +395,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>pay</td><td>11</td><td>Hosted checkout, webhook signature on raw body, idempotency, server-side entitlements, sandbox end-to-end, dunning, tax, commercial-use hosting</td><td>Webhook replays are no-ops → unique event-id constraint</td></tr>
   </tbody></table>
   <div class="callout">Known intentional matches go into the profile's accepted exceptions, so they are not re-triaged each session. Checks written for JavaScript/TypeScript have worked equivalents for other stacks (next page).</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 14 · OTHER STACKS -->
@@ -419,7 +419,7 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
     <tr><td>No unsafe HTML, no PII in logs, services mocked, real error pages</td><td><code>|safe</code>, <code>template.HTML</code>, <code>html_safe</code>, <code>{!!</code>; logger calls with token/password/email; <code>@patch</code>, <code>httptest</code>, <code>webmock</code>, <code>Http::fake</code>; 404/500 templates</td></tr>
   </tbody></table>
   <div class="callout warn"><strong>Calibrate before trusting "fine".</strong> The first time a translation runs, the agent points it at one file that should match. A pattern that silently matches nothing would report a problem as fine, the worst result a check can give. All 14 security patterns were tested against sample files; none has yet run on a real Python, Go, Rails or Laravel project. Other stacks (Java, .NET, Rust, Elixir…) are translated the same way and saved in the profile.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 15 · HOW THE AGENT PICKS SKILLS -->
@@ -459,7 +459,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
       <p class="muted">Asked once per session, at most four per prompt; no answer means "use fallback"; the answer is saved in the profile so it is never asked again.</p>
     </div>
   </div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 16 · WHICH SKILL FOR EACH TASK -->
@@ -492,7 +492,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>Big plan, many tasks</td><td>writing-plans → subagent-driven-development</td><td>Plan file + one fresh session per task</td><td>Small focused contexts; cheaper, less drift.</td></tr>
     <tr><td>Handoff · retro · hooks</td><td>handoff · retro · update-config</td><td>10-line note · lessons by hand · exact settings for you</td><td>Clean restarts, rules that improve, rules made automatic.</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 17 · WHY THIS WAY -->
@@ -513,7 +513,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>Your rules beat skill defaults</td><td>A skill's advice overrides the project's design system or conventions.</td><td>Project instruction file and design tokens always win.</td></tr>
   </tbody></table>
   <div class="callout">Net effect for the team: the same task gets the same tools no matter who runs it. Missing tools never block work. Your skill list stays small and deliberate, and every addition is your decision.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 19 · TOKENS -->
@@ -535,7 +535,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>Skill budget · short reports</td><td>Few, non-overlapping skills installed; reports give totals, problems and one next step.</td><td>Skill descriptions loaded for nothing; long summaries nobody needs.</td></tr>
   </tbody></table>
   <div class="callout">Starting a fresh task costs about 5.3k tokens of guide: core (~2.9k) + one playbook section (~0.8k) + one module (~0.9k) + profile (~0.65k). Optional: record <code>tokens:</code> in each handoff note to see where cost leaks.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 20 · ENFORCEMENT -->
@@ -551,7 +551,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>Agent hooks</td><td>In the agent tool's project settings (e.g. Claude Code <code>.claude/settings.json</code>): after each edit run formatter + typecheck on that file; when a task stops run its narrow tests. Set up with your approval.</td><td>What the agent forgets while it works, before it reaches CI</td></tr>
   </tbody></table>
   <p class="lead" style="margin-top:8px">The guide includes a minimal copy-paste CI workflow (GitHub Actions) that you adapt to the project's language and scripts.</p>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 21 · TEAMS -->
@@ -570,7 +570,7 @@ Owner:       Kazi's agent · feat/csv-export · since 2026-10-05
 Done when:   pnpm test reports passes and the downloaded file opens in Excel with 3 columns
 Files:       app/reports/*, lib/export/*
 Handoff:     docs/plans/reports.md</pre>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 22 · AFTER LAUNCH -->
@@ -588,7 +588,7 @@ Handoff:     docs/plans/reports.md</pre>
     <tr><td>Before each major release</td><td>Re-run the release check at the current level.</td></tr>
   </tbody></table>
   <div class="callout">Why spend gets its own line: for an AI product, model calls are usually the biggest variable cost. Per-call logging and per-user caps were already checks; the playbook now also rolls spend up against a budget you set, and asks you for that budget up front.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 23 · INCIDENTS -->
@@ -607,7 +607,7 @@ Handoff:     docs/plans/reports.md</pre>
 <pre style="margin-top:8px">"Payments are failing for everyone since the 14:02 deploy. I recommend rolling back to the 13:40 deploy now,
 which undoes today's checkout change. Command: vercel rollback &lt;url&gt;. Shall I run it?"</pre>
   <p class="muted" style="margin-top:6px">Severity sets the pace: S1 → steps 1-3 now and the fix the same day · S2 → contain if cheap, otherwise fix next session · S3 → ticket only.</p>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 24 · ROLES -->
@@ -634,7 +634,7 @@ which undoes today's checkout change. Command: vercel rollback &lt;url&gt;. Shal
     <tr><td>Launch go / no-go</td><td>Runs the release check and reports</td><td><span class="pill approve">decide</span></td></tr>
     <tr><td>Improving the guide</td><td>Suggests changes from retros</td><td>Accept, bump the version</td></tr>
   </tbody></table>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 25 · WHAT TO EXPECT -->
@@ -681,7 +681,7 @@ Architecture essentials: still match
 Decisions: none open · Gotcha: limiter key must use user id when signed in</pre>
     </div>
   </div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 <!-- 26 · QUICKSTART + LIMITS -->
@@ -711,7 +711,7 @@ Decisions: none open · Gotcha: limiter key must use user id when signed in</pre
         <tr><td>You pick the model</td><td>For work on stored data, sign-in or payments, run a strong model; the playbook doesn't check this for you.</td></tr>
         <tr><td>Newest parts not yet piloted</td><td>Tested once each on a small app (Oct 2026): Phase 0, plans, out-of-scope, joining a project and incidents passed. Team rules are untested; larger real projects not yet.</td></tr>
         <tr><td>Other stacks lightly tested</td><td>Translations are tested on sample files only; the first run on a real Python, Go, Rails or Laravel repo calibrates them.</td></tr>
-        <tr><td>Token result needs re-measuring</td><td>The +2% token result on page 4 was measured on v4.0; the core has grown since (~2.7k → ~2.9k tokens). Re-measure with the token-comparison script.</td></tr>
+        <tr><td>It costs more per small task</td><td>About +40% cost on a small feature in a tiny app (3 runs). Expect the gap to shrink on risky or ambiguous work, where the plan prevents rework, but that is not measured yet. Re-measure on your own task with the token-comparison script.</td></tr>
         <tr><td>Legal items are drafts</td><td>A human, ideally a lawyer, approves anything that goes live.</td></tr>
         <tr><td>Skill names vary by pack</td><td>The agent uses the skills actually installed and falls back when a name is missing.</td></tr>
         <tr><td>Needs a real level from you</td><td>A wrong level means too many or too few checks; revisit it at each launch stage.</td></tr>
@@ -719,7 +719,7 @@ Decisions: none open · Gotcha: limiter key must use user id when signed in</pre
     </div>
   </div>
   <div class="callout">Treat v4.3 as a tested baseline with new, unpiloted parts. It becomes stable after a pilot on two or three different project types (for example a new MVP, an existing API in another language, and a production incident drill), recorded in the guide's changelog.</div>
-  <div class="foot"><span>Kazi's AI Agent Playbook · v4.3.3 · Developer briefing</span></div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.0 · Developer briefing</span></div>
 </section>
 
 </body>
