@@ -11,5 +11,5 @@
 8. **Loop guard.** Same approach failed twice → stop, state the evidence, switch method (`systematic-debugging`) or ask. Never retry a third time unchanged. Never weaken or delete a test to get green.
 9. **Security floor never traded for speed:** input validation at boundaries, authz on every object access, no secrets in code/logs/prompts, no disabling checks to pass CI.
 10. **Design for depth.** Prefer modules with a small interface and real behavior behind it over many shallow pass-through layers; put seams where change is likely. Use the glossary's terms in names.
-11. **Docs travel with code.** If behavior, a command, a token, or a route changes, update the doc/profile in the same commit.
+11. **Docs travel with code.** If behavior, a command, a token, or a route changes so that a doc is now wrong, update that doc/profile in the same commit. A small feature that changes none of these does not touch the brief, profile or architecture docs.
 12. **Evidence before claims.** "Done" means the Done-when command output was seen. Otherwise say UNKNOWN or not run.
