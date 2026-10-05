@@ -28,7 +28,6 @@ The playbook is a Claude Code skill (`agent-playbook`) that gives an AI coding a
 **The six gates** (only you can waive one): a "how we'll know it's done" check before any edit · approved brief and stack before new-product code · an approved plan before anything users will notice · ask before installs, pushes, deploys, spending, deleting data or live legal text · evidence before claims · your instructions and your repo's rules beat the playbook.
 
 **Also built in:**
-- **Model fit:** at the start of a session the agent tells you, in one line, if the task looks too big or risky for the current model (or small enough for a cheaper one). You decide; it never blocks.
 - **Skill picking:** for each capability (planning, TDD, code review, security review, browser checks, docs lookup, dead-code detection…) it uses the first matching skill actually installed, falls back to a built-in method if none is, and asks you once before anything is installed.
 - **Teams:** tasks are claimed with an `Owner:` line, each agent works in its own branch or worktree, and the shared files have merge rules.
 - **Other stacks:** worked check translations for Python, Go, Rails and Laravel (`references/stack-translations.md`); other stacks are translated once and saved in the profile.
@@ -71,6 +70,8 @@ The skill can also be called directly: `/kazi-ai-agent-playbook:agent-playbook`.
 
 Write tasks with an outcome, how you'll know it's done, and the files in scope; a vague task costs more tokens than a precise one. At L2 and above, turn on a pre-commit hook and required CI so the rules are enforced by tools, not just followed (`references/B12-enforcement.md`).
 
+**Pick a strong model for work on stored data, sign-in or payments**; the playbook doesn't check the model for you.
+
 **You stay in charge of:** the level, approving briefs, plans and stack choices, legal text, outside accounts (hosting, CI, error tracking, payments), every push, deploy and production action, which model you run, and what gets installed.
 
 ## Getting updates (teammates)
@@ -94,7 +95,7 @@ plugins/kazi-ai-agent-playbook/skills/agent-playbook/
   references/B1…B18-*.md        playbooks, opened only when the router names them:
                                   quickstart, Phase 0, checks, tokens, asking, ledger, sessions and teams, coding, safety,
                                   build workflow, launch, enforcement, versioning, improving, architecture docs,
-                                  joining an existing project, model fit, incident response
+                                  joining an existing project, incident response
   references/skill-registry.md  product type → skills, capability → provider → fallback, skill budget
   references/stack-translations.md   check equivalents for Python, Go, Rails, Laravel
   references/modules/*.md       9 checklists, 162 items (sec, qa, ai, legal, ux, perf, ops, seo, pay)
@@ -107,7 +108,7 @@ plugins/kazi-ai-agent-playbook/skills/agent-playbook/
 
 - It is advice, not enforcement: the `CLAUDE.md` line plus hooks and CI make it stick.
 - Grep checks find missing things well; subtle logic bugs still need tests and review.
-- Piloted on a Next.js repo and a plain HTML/JS app. The newest parts (joining existing projects, architecture docs, model fit, incident response, non-JS translations) are not yet piloted on real projects; the translations are tested against sample files only.
+- Piloted on a Next.js repo and a plain HTML/JS app. The newest parts (joining existing projects, architecture docs, incident response, non-JS translations) are not yet piloted on real projects; the translations are tested against sample files only.
 - Legal items are drafts; a human, ideally a lawyer, approves anything that goes live.
 
 ## Publishing an update (maintainer)

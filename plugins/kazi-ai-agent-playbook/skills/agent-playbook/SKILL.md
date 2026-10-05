@@ -1,9 +1,9 @@
 ---
 name: agent-playbook
-description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code: hard gates, a task router and level-based readiness checks. Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, joining an existing or unfamiliar codebase, code review or a PR, a readiness, release or launch check, a production incident, choosing which skills, tools or model to use, or handing off a long session.
+description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code: hard gates, a task router and level-based readiness checks. Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, joining an existing or unfamiliar codebase, code review or a PR, a readiness, release or launch check, a production incident, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.3.2
+# Kazi's AI Agent Playbook · v4.3.3
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -62,7 +62,6 @@ Modules live in `references/modules/{sec,qa,ai,legal,ux,perf,ops,seo,pay}.md`; e
 - **Sessions:** one task = one session or sub-agent · start fresh when the task changes, the context is about half full, or you notice yourself repeating · write a handoff of 10 lines or fewer to a file before ending · fixes and reviews go to a fresh agent. (`B7-sessions.md`)
 - **Skills:** use only skills listed in this session · one workflow pack, at most one style preset, at most one animation audit; if several are installed, pick one, say which, and suggest disabling the rest · if one is missing, use its fallback and ask once, batched. (`skill-registry.md`)
 - **Checks:** every Bash call starts in a fresh shell, so start each check batch with `gg(){ bash "<skill-dir>/scripts/gg.sh" "$@"; }; SRC="<source dirs from the profile>"` and run the Checks in that same call. (`B3-check-protocol.md`)
-- **Model fit:** before the first edit of a fresh session, if the task's stakes, size or level don't suit the current model, say so in one plain line; the dev decides, never a block. (`B17-model-fit.md`)
 
 ## A5. Talking to the developer (plain language, always)
 

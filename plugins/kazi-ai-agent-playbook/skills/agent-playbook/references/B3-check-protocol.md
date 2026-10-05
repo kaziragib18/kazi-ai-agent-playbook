@@ -8,7 +8,6 @@
    - Not an empty repo (so Phase 0, `B2`, does not apply) and the profile's `docs:` line is unset, or marks any of `brief`/`arch`/`essentials` missing/stale: run the mid-project onboarding backfill (`references/B16-mid-project-onboarding.md`) before continuing. Not a one-time step — this check runs on every fresh-profile first session, not only the very first time the repo is opened.
    - Read `references/skill-registry.md` §Preflight: resolve the skills you need against the skills actually listed in this session. Ask about missing ones **once, batched** (§B5).
 1. **Route.** `git diff --name-only <base>...HEAD`, or the files the task names; without git, files changed since the last ledger entry (`find . -type f -newer docs/readiness-ledger.md -not -path '*/node_modules/*'`) → module via the routing table in the project profile (`docs/agent-profile.md`). Release candidate → all items with `Lvl <= level` and nothing else.
-1b. **Model fit** (fresh session, before the first edit; skip for a trivial no-gate task): check the gate tier, blast radius and level just established in step 1 against the current model (`references/B17-model-fit.md`). Mismatch → one line, stated once, dev decides; never blocks.
 2. **Filter.** Keep items where `Lvl <= level` AND tag is `all` or a set flag. Everything else is N/A. Do not discuss N/A items.
 3. **Verify.** Every Bash call starts in a fresh shell (functions and variables do not persist), so begin **each** check batch with:
    ```bash

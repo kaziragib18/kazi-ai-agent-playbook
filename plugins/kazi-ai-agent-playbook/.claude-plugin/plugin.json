@@ -1,6 +1,6 @@
 {
   "name": "kazi-ai-agent-playbook",
-  "version": "4.3.2",
-  "description": "Kazi's AI Agent Playbook: hard gates, task router, token and session rules, idea-to-ship workflow, architecture-doc generation with drift control, mid-project onboarding with doc backfill, incident response, non-JS check translations, multi-agent coordination, a per-session model-fit check, and 162 level-based readiness checks.",
+  "version": "4.3.3",
+  "description": "Kazi's AI Agent Playbook: hard gates, task router, token and session rules, idea-to-ship workflow, architecture-doc generation with drift control, mid-project onboarding with doc backfill, incident response, non-JS check translations, multi-agent coordination, and 162 level-based readiness checks.",
   "author": { "name": "Kazi Ragib" }
 }

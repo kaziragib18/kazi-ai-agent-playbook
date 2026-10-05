@@ -18,4 +18,4 @@
 | 13 | Don't re-verify | Skip an item whose latest ledger date is newer than `git log -1 --format=%cs -- <its paths>`. Without git, compare the paths' modification dates (`find <paths> -newer docs/readiness-ledger.md`). |
 | 14 | Plan once for big remediation | >5 FAILs: `writing-plans` once, then one fresh subagent per task with a file handoff. Don't fix inline in a bloated context. See §B7. |
 
-**Model choice (sub-agents/delegated work):** greps, sweeps, formatting → small model. Security-sensitive fixes, architecture decisions, ambiguous failures → the strong model. Never use a small model to judge an auth or payment fix. For the primary session's own model (what the dev is talking to), see `B17-model-fit.md` — checked once per fresh session before the first edit, as a recommendation, never a block.
+**Model choice (sub-agents/delegated work):** greps, sweeps, formatting → small model. Security-sensitive fixes, architecture decisions, ambiguous failures → the strong model. Never use a small model to judge an auth or payment fix.
