@@ -90,7 +90,7 @@ claude plugin update kazi-ai-agent-playbook@kazi-playbook
 
 ```
 plugins/kazi-ai-agent-playbook/skills/agent-playbook/
-  SKILL.md                      core: gates, two dials, task router, rules card, plain-language rules (~3.2k tokens, loaded when the skill triggers)
+  SKILL.md                      core: gates, two dials, task router, rules card, plain-language rules (~2.9k tokens, loaded when the skill triggers)
   references/B1…B18-*.md        playbooks, opened only when the router names them:
                                   quickstart, Phase 0, checks, tokens, asking, ledger, sessions and teams, coding, safety,
                                   build workflow, launch, enforcement, versioning, improving, architecture docs,
