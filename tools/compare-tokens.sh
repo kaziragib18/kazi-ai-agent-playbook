@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Measure the playbook's token impact on YOUR project: run the same task with and without the plugin
+# Maintainer tool (not part of the installed plugin). Measure the playbook's token impact on YOUR project: run the same task with and without the plugin
 # in throwaway copies, then print tokens, cost, time and files changed side by side.
 #
 # Usage:  bash compare-tokens.sh "<task prompt>" [project-dir] [runs]
@@ -18,7 +18,7 @@ TASK=${1:?usage: compare-tokens.sh "<task prompt>" [project-dir] [runs]}
 PROJ=$(cd "${2:-.}" && pwd) || exit 1
 RUNS=${3:-1}
 MODE=${PERMISSION_MODE:-auto}
-PLUGIN_ROOT=$(cd "$(dirname "$0")/../../.." && pwd)   # .../plugins/kazi-ai-agent-playbook
+PLUGIN_ROOT=$(cd "$(dirname "$0")/../plugins/kazi-ai-agent-playbook" && pwd)
 PLUGIN_ID="kazi-ai-agent-playbook@kazi-playbook"
 PLUGIN_VERSION=$(python3 -c "import json,sys;print(json.load(open(sys.argv[1]))['version'])" "$PLUGIN_ROOT/.claude-plugin/plugin.json" 2>/dev/null || echo unknown)
 command -v claude >/dev/null || { echo "claude CLI not found" >&2; exit 1; }

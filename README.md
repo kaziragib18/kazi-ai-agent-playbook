@@ -87,19 +87,6 @@ claude plugin update kazi-ai-agent-playbook@kazi-playbook
 - Check with `claude plugin list`: the version should match the latest `version` in `plugins/kazi-ai-agent-playbook/.claude-plugin/plugin.json` on GitHub.
 - Optional: run `/plugin` in Claude Code, open the `kazi-playbook` marketplace and turn on auto-update if your Claude Code version offers it. New versions then arrive on their own and only need a restart.
 
-## Measure the token impact on your project
-
-What the plugin itself adds: `claude plugin details kazi-ai-agent-playbook@kazi-playbook`. Inside a session, `/cost` and `/context` show live usage.
-
-What it saves or costs on a real task: run the same task with and without the playbook, in throwaway copies (your project is never modified, and the copies have their git remotes removed so they cannot push):
-
-```bash
-cd your-project
-FROM=HEAD bash ~/.claude/plugins/cache/kazi-playbook/kazi-ai-agent-playbook/<version>/skills/agent-playbook/scripts/compare-tokens.sh "Add a dark mode toggle" . 3
-```
-
-Or ask Claude: "How many tokens does the playbook cost on this task?"; it asks first, because each comparison runs paid sessions (2 per run, 4 if a side stops to ask for approval). Run it from the installed copy, as above, to measure the version you actually use. The table shows tokens, cost, time, turns and files changed. When the playbook stops to ask for a plan, the script replies "approved, go ahead" and adds both parts, so both sides are measured finishing the job. Use 3+ runs; one run is noisy. Both runs are kept so you can see *why* they differ.
-
 ## What is inside
 
 ```
@@ -115,7 +102,6 @@ plugins/kazi-ai-agent-playbook/skills/agent-playbook/
   assets/profile-template.md    copied to docs/agent-profile.md in each project
   scripts/recon.sh              2-second project fingerprint (stack, flags, routes, tests, missing files)
   scripts/gg.sh                 search helper every check runs through (works with or without git)
-  scripts/compare-tokens.sh     with/without token comparison on your own task
 ```
 
 ## Honest limits
@@ -124,6 +110,17 @@ plugins/kazi-ai-agent-playbook/skills/agent-playbook/
 - Grep checks find missing things well; subtle logic bugs still need tests and review.
 - Piloted on a Next.js repo and a plain HTML/JS app. The newest parts (joining existing projects, architecture docs, incident response, non-JS translations) are not yet piloted on real projects; the translations are tested against sample files only.
 - Legal items are drafts; a human, ideally a lawyer, approves anything that goes live.
+
+## Measuring token cost (maintainer tool)
+
+`tools/compare-tokens.sh` is not part of the installed plugin. It runs the same task with and without the playbook in throwaway copies of a project (git remotes removed, your project untouched) and prints tokens, cost, time, turns and files changed. It runs paid sessions (2 per run, 4 if a side stops for approval), so use it deliberately:
+
+```bash
+cd your-project
+FROM=HEAD bash /path/to/kazi-playbook/tools/compare-tokens.sh "Add a dark mode toggle" . 3
+```
+
+Use 3+ runs; one run is noisy. Results so far are in `references/B13-versioning.md` (v4.4.0 and v4.4.1).
 
 ## Publishing an update (maintainer)
 

@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code: hard gates, a task router and level-based readiness checks. Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, joining an existing or unfamiliar codebase, code review or a PR, a readiness, release or launch check, a production incident, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.4.1
+# Kazi's AI Agent Playbook · v4.4.2
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
@@ -52,7 +52,6 @@ Classify the task, then open only what is listed (silently: never tell the devel
 | "What should I install?" | `references/skill-registry.md` §C1 and §Skill budget | recommendation + what not to install |
 | Long task, context getting full | `references/B7-sessions.md` | handoff note, fresh session |
 | Setting up hooks or CI | `references/B12-enforcement.md` | config for approval |
-| "How many tokens does the playbook cost or save?" | nothing else | ask first (paid sessions), then run `scripts/compare-tokens.sh` (usage in its header); report in words what each run did |
 
 Modules live in `references/modules/{sec,qa,ai,legal,ux,perf,ops,seo,pay}.md`; every other reference is opened only when a playbook names it.
 
