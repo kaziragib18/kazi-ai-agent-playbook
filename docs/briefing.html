@@ -89,15 +89,16 @@ pre { font-family: Menlo, monospace; font-size: 7.7px; background: #f3f5f9; bord
       <tr><td>14</td><td>Other stacks: Python, Go, Rails, Laravel</td></tr>
       <tr><td>15</td><td>How the agent picks skills</td></tr>
       <tr><td>16</td><td>Which skill for each task</td></tr>
-      <tr><td>17</td><td>Why this way of choosing skills is better</td></tr>
-      <tr><td>18</td><td>How tokens are saved</td></tr>
-      <tr><td>19</td><td>Making the rules binding</td></tr>
-      <tr><td>20</td><td>Several devs or agents on one repo</td></tr>
-      <tr><td>21</td><td>After launch: monitoring and spend</td></tr>
-      <tr><td>22</td><td>When production breaks</td></tr>
-      <tr><td>23</td><td>Who does what</td></tr>
-      <tr><td>24</td><td>What to expect when you start</td></tr>
-      <tr><td>25</td><td>Quickstart and honest limits</td></tr>
+      <tr><td>17</td><td>Installing the skills</td></tr>
+      <tr><td>18</td><td>Why this way of choosing skills is better</td></tr>
+      <tr><td>19</td><td>How tokens are saved</td></tr>
+      <tr><td>20</td><td>Making the rules binding</td></tr>
+      <tr><td>21</td><td>Several devs or agents on one repo</td></tr>
+      <tr><td>22</td><td>After launch: monitoring and spend</td></tr>
+      <tr><td>23</td><td>When production breaks</td></tr>
+      <tr><td>24</td><td>Who does what</td></tr>
+      <tr><td>25</td><td>What to expect when you start</td></tr>
+      <tr><td>26</td><td>Quickstart and honest limits</td></tr>
     </tbody></table></div>
   </div>
   <div class="foot"><span>Version v4.4.2 · 2026-10-05 · Claude Code plugin: <code>github.com/kaziragib18/kazi-ai-agent-playbook</code></span></div>
@@ -495,13 +496,39 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
   <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.2 · Developer briefing</span></div>
 </section>
 
+<!-- 17 · INSTALLING THE SKILLS -->
+<section class="page">
+  <p class="eyebrow">Skills and tools</p>
+  <h1>Installing the skills on the previous page</h1>
+  <p class="lead" style="margin-bottom:6px">You run these, not the agent. Run them in a terminal, or inside Claude Code without the leading <code>claude</code> (<code>/plugin install …</code>). Restart Claude Code afterwards. Install only what your project type needs (page 15); every installed skill costs tokens in every session.</p>
+  <table style="font-size:7.6px"><thead><tr><th style="width:15%">Capability</th><th style="width:25%">Skills you get</th><th style="width:40%">Install (once per machine)</th><th>Notes</th></tr></thead><tbody>
+    <tr><td>Workflow pack, option A</td><td>brainstorming, writing-plans, test-driven-development, systematic-debugging, verification-before-completion, subagent-driven-development</td><td><code>claude plugin install superpowers@claude-plugins-official</code></td><td><b>Pick A or B, not both:</b> they overlap on planning, TDD, debugging and review.</td></tr>
+    <tr><td>Workflow pack, option B</td><td>grill-me, to-spec, to-tickets, domain-modeling, prototype, tdd, handoff, retro, improve-codebase-architecture</td><td><code>claude plugin install mattpocock-skills@claude-plugins-official</code></td><td>Or copy editable files into the repo: <code>npx skills@latest add mattpocock/skills</code>, and include <code>setup-matt-pocock-skills</code>.</td></tr>
+    <tr><td>Lean code</td><td>ponytail, ponytail-review, ponytail-audit</td><td><code>claude plugin marketplace add DietrichGebert/ponytail</code><br><code>claude plugin install ponytail@ponytail</code></td><td>Recommended for every project.</td></tr>
+    <tr><td>UI design quality</td><td>impeccable</td><td><code>claude plugin marketplace add pbakaus/impeccable</code><br><code>claude plugin install impeccable@impeccable</code></td><td>Projects with a user interface.</td></tr>
+    <tr><td>Style preset · redesign</td><td>design-taste-frontend, minimalist-ui, high-end-visual-design, industrial-brutalist-ui, redesign-existing-projects</td><td><code>npx skills add https://github.com/Leonxlnx/taste-skill --skill "&lt;name&gt;"</code></td><td>Install <b>one</b> preset by name, for landing pages. Add redesign-existing-projects only for a redesign.</td></tr>
+    <tr><td>Browser checks</td><td>Playwright MCP</td><td><code>claude plugin install playwright@claude-plugins-official</code></td><td>Needs Node (runs <code>npx @playwright/mcp</code>).</td></tr>
+    <tr><td>Live-page debugging</td><td>Chrome DevTools MCP</td><td><code>claude plugin install chrome-devtools-mcp@claude-plugins-official</code></td><td>Optional; Playwright covers the basics.</td></tr>
+    <tr><td>Library docs</td><td>context7</td><td><code>claude plugin install context7@claude-plugins-official</code></td><td>If <code>/mcp</code> shows "needs authentication", sign in there.</td></tr>
+    <tr><td>Code graph</td><td>codebase-memory MCP</td><td><code>curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash</code></td><td>Large codebases only. The installer registers it with Claude Code; then ask "index this repo".</td></tr>
+    <tr><td>Dead code</td><td>knip · vulture</td><td><code>npx knip</code> (JS/TS) · <code>pipx install vulture</code> (Python)</td><td>Project tools, not skills; the agent asks before adding one.</td></tr>
+    <tr><td>Pentest (highest level)</td><td>Strix</td><td><code>curl -sSL https://strix.ai/install | bash</code> then <code>strix --target ./app</code></td><td>Needs an LLM API key (see its README). Never against production.</td></tr>
+    <tr><td>Already built in</td><td>code-review, security-review, simplify, update-config, claude-api</td><td>Nothing to install: they ship with Claude Code.</td><td><code>dataviz</code> comes with some Claude accounts; the fallback covers it otherwise.</td></tr>
+  </tbody></table>
+  <div class="cols" style="margin-top:4px">
+    <div class="callout" style="margin:0"><b>Starter set for most projects:</b> one workflow pack (A or B) · ponytail · Playwright · context7. Add impeccable for UI work, codebase-memory for a large repo, and one style preset only for a landing page.</div>
+    <div class="callout" style="margin:0"><b>Check and update:</b> <code>claude plugin list</code> and <code>claude mcp list</code> show what is installed. Update a plugin with <code>claude plugin marketplace update &lt;marketplace&gt;</code> then <code>claude plugin update &lt;plugin&gt;@&lt;marketplace&gt;</code>; copied skills with <code>npx skills update</code>.</div>
+  </div>
+  <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.2 · Developer briefing</span></div>
+</section>
+
 <!-- 17 · WHY THIS WAY -->
 <section class="page">
   <p class="eyebrow">Skills and tools</p>
   <h1>Why this way of choosing skills is better</h1>
   <p class="lead">Without rules, an agent uses whatever skill it notices first, several at once, or none. The guide makes the choice predictable, cheap and always under your control.</p>
   <table><thead><tr><th style="width:22%">Rule in the guide</th><th style="width:36%">What usually happens without it</th><th>Why the guide's way is better</th></tr></thead><tbody>
-    <tr><td>Pick from the task, not from habit</td><td>The agent reaches for a familiar skill even when the task needs a different one.</td><td>The router and the table on the previous page give the same answer every time, across sessions and teammates.</td></tr>
+    <tr><td>Pick from the task, not from habit</td><td>The agent reaches for a familiar skill even when the task needs a different one.</td><td>The router and the table on page 16 give the same answer every time, across sessions and teammates.</td></tr>
     <tr><td>Only skills actually installed</td><td>The agent "calls" a skill that does not exist in this setup, or describes one from memory.</td><td>No invented skills; the session's own list is the only source of truth.</td></tr>
     <tr><td>One skill per capability</td><td>Two overlapping skills give conflicting advice (two style presets, two workflow packs).</td><td>One clear direction; no muddled design or duplicated steps.</td></tr>
     <tr><td>Capabilities, not brand names</td><td>A gap stays open because the one named tool isn't installed.</td><td>Any installed tool with the capability counts, so new tools slot in without changing the playbook.</td></tr>
@@ -693,20 +720,21 @@ Decisions: none open · Gotcha: limiter key must use user id when signed in</pre
       <h2>Set up in about two minutes</h2>
       <table class="plain"><thead><tr><th class="n">#</th><th>Do this</th></tr></thead><tbody>
         <tr><td>1</td><td>Install once: <code>claude plugin marketplace add kaziragib18/kazi-ai-agent-playbook</code> then <code>claude plugin install kazi-ai-agent-playbook@kazi-playbook</code>.</td></tr>
-        <tr><td>2</td><td>Add one line to the project's <code>CLAUDE.md</code>: use the <code>agent-playbook</code> skill for every task and ask before installing anything.</td></tr>
-        <tr><td>3</td><td>Say "Run the preflight" (existing repo), or "Start Phase 0" (brand-new product).</td></tr>
-        <tr><td>4</td><td>Answer the one batched question; answers are saved in <code>docs/agent-profile.md</code>.</td></tr>
-        <tr><td>5</td><td>Write tasks with an outcome, how you'll know it's done, and the files in scope.</td></tr>
-        <tr><td>6</td><td>For a release, say "Run the release check" (add "for a public paid launch" to set how strict).</td></tr>
-        <tr><td>7</td><td>Something broke in production? Say so plainly: "payments are failing since the last deploy".</td></tr>
-        <tr><td>8</td><td>For a free beta and above, turn on the pre-commit hook and required CI.</td></tr>
-        <tr><td>9</td><td>Update: <code>claude plugin marketplace update kazi-playbook</code>, then <code>claude plugin update kazi-ai-agent-playbook@kazi-playbook</code>, then restart. Check with <code>claude plugin list</code>.</td></tr>
+        <tr><td>2</td><td>Install the skills your project type needs (page 17); the agent tells you which are missing.</td></tr>
+        <tr><td>3</td><td>Add one line to the project's <code>CLAUDE.md</code>: use the <code>agent-playbook</code> skill for every task and ask before installing anything.</td></tr>
+        <tr><td>4</td><td>Say "Run the preflight" (existing repo), or "Start Phase 0" (brand-new product).</td></tr>
+        <tr><td>5</td><td>Answer the one batched question; answers are saved in <code>docs/agent-profile.md</code>.</td></tr>
+        <tr><td>6</td><td>Write tasks with an outcome, how you'll know it's done, and the files in scope.</td></tr>
+        <tr><td>7</td><td>For a release, say "Run the release check" (add "for a public paid launch" to set how strict).</td></tr>
+        <tr><td>8</td><td>Something broke in production? Say so plainly: "payments are failing since the last deploy".</td></tr>
+        <tr><td>9</td><td>For a free beta and above, turn on the pre-commit hook and required CI.</td></tr>
+        <tr><td>10</td><td>Update: <code>claude plugin marketplace update kazi-playbook</code>, then <code>claude plugin update kazi-ai-agent-playbook@kazi-playbook</code>, then restart. Check with <code>claude plugin list</code>.</td></tr>
       </tbody></table>
     </div>
     <div>
       <h2>What it does not do</h2>
       <table><thead><tr><th style="width:36%">Limit</th><th>What to do about it</th></tr></thead><tbody>
-        <tr><td>It is advice, not enforcement</td><td>Use the <code>CLAUDE.md</code> line plus hooks and CI (page 19).</td></tr>
+        <tr><td>It is advice, not enforcement</td><td>Use the <code>CLAUDE.md</code> line plus hooks and CI (page 20).</td></tr>
         <tr><td>Grep checks are hints, not proof</td><td>They find missing things well; subtle logic bugs still need tests and review.</td></tr>
         <tr><td>You pick the model</td><td>For work on stored data, sign-in or payments, run a strong model; the playbook doesn't check this for you.</td></tr>
         <tr><td>Newest parts not yet piloted</td><td>Tested once each on a small app (Oct 2026): Phase 0, plans, out-of-scope, joining a project and incidents passed. Team rules are untested; larger real projects not yet.</td></tr>
@@ -718,7 +746,7 @@ Decisions: none open · Gotcha: limiter key must use user id when signed in</pre
       </tbody></table>
     </div>
   </div>
-  <div class="callout">Treat v4.3 as a tested baseline with new, unpiloted parts. It becomes stable after a pilot on two or three different project types (for example a new MVP, an existing API in another language, and a production incident drill), recorded in the guide's changelog.</div>
+  <div class="callout">Treat v4.4 as a tested baseline with new, unpiloted parts. It becomes stable after a pilot on two or three different project types (for example a new MVP, an existing API in another language, and a production incident drill), recorded in the guide's changelog.</div>
   <div class="foot"><span>Kazi's AI Agent Playbook · v4.4.2 · Developer briefing</span></div>
 </section>
 
