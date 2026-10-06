@@ -3,7 +3,7 @@ name: agent-playbook
 description: Kazi's AI Agent Playbook, the team's operating rules for building software with Claude Code: hard gates, a task router and level-based readiness checks. Use this skill at the start of any software task in a repository, even if the user does not mention the playbook — starting a new product or MVP, planning or building a feature, fixing a bug, UI or design work, joining an existing or unfamiliar codebase, code review or a PR, a readiness, release or launch check, a production incident, choosing which skills or tools to install, or handing off a long session.
 ---
 
-# Kazi's AI Agent Playbook · v4.4.2
+# Kazi's AI Agent Playbook · v4.4.3
 
 How AI agents plan, build, check and ship any product, with the developer in control. This file is the core: read it fully, then open only the reference file the task router (§A3) names. Everything else in this skill exists to be loaded on demand, which is what keeps each task cheap.
 
