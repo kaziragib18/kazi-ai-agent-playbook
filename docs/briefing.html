@@ -486,7 +486,7 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>"Who calls this?"</td><td>codebase-memory (code graph)</td><td><code>gg</code> + short reads</td><td>Structural answers without reading whole files.</td></tr>
     <tr><td>Code review</td><td>code-review, by a fresh agent</td><td>Diff checked against the QA module</td><td>Fresh eyes on standards and the spec.</td></tr>
     <tr><td>Security review</td><td>security-review</td><td>Security module checks via grep</td><td>Auth, data-leak and injection issues before merge.</td></tr>
-    <tr><td>Try to exploit it (highest level)</td><td>An agentic pentest tool, e.g. Strix-class</td><td>Static checks only, and the report says so</td><td>Real attack attempts, on a non-production copy, with your OK.</td></tr>
+    <tr><td>Try to exploit it (highest level)</td><td>An agentic pentest tool, if one is listed in the session</td><td>Static checks only, and the report says so</td><td>Real attack attempts, on a non-production copy, with your OK.</td></tr>
     <tr><td>Simplify / remove bloat</td><td>simplify / ponytail-review / ponytail-audit</td><td>"Can this be deleted?" pass on the diff</td><td>Less code to maintain.</td></tr>
     <tr><td>Dead code</td><td>knip / ts-prune / vulture, code graph</td><td>Grep the removed name across the source</td><td>A removal or rename never leaves orphans.</td></tr>
     <tr><td>Before saying "done"</td><td>verification-before-completion</td><td>Run the Done-when; quote the output</td><td>No success claims without evidence.</td></tr>
@@ -512,7 +512,6 @@ Choose: [I'll install it, wait] [Use fallback] [Skip this area]</pre>
     <tr><td>Library docs</td><td>context7</td><td><code>claude plugin install context7@claude-plugins-official</code></td><td>If <code>/mcp</code> shows "needs authentication", sign in there.</td></tr>
     <tr><td>Code graph</td><td>codebase-memory MCP</td><td><code>curl -fsSL https://raw.githubusercontent.com/DeusData/codebase-memory-mcp/main/install.sh | bash</code></td><td>Large codebases only. The installer registers it with Claude Code; then ask "index this repo".</td></tr>
     <tr><td>Dead code</td><td>knip · vulture</td><td><code>npx knip</code> (JS/TS) · <code>pipx install vulture</code> (Python)</td><td>Project tools, not skills; the agent asks before adding one.</td></tr>
-    <tr><td>Pentest (highest level)</td><td>Strix</td><td><code>curl -sSL https://strix.ai/install | bash</code> then <code>strix --target ./app</code></td><td>Needs an LLM API key (see its README). Never against production.</td></tr>
     <tr><td>Already built in</td><td>code-review, security-review, simplify, update-config, claude-api</td><td>Nothing to install: they ship with Claude Code.</td><td><code>dataviz</code> comes with some Claude accounts; the fallback covers it otherwise.</td></tr>
   </tbody></table>
   <div class="cols" style="margin-top:4px">
