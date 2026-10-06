@@ -721,14 +721,13 @@ Decisions: none open · Gotcha: limiter key must use user id when signed in</pre
       <table class="plain"><thead><tr><th class="n">#</th><th>Do this</th></tr></thead><tbody>
         <tr><td>1</td><td>Install once: <code>claude plugin marketplace add kaziragib18/kazi-ai-agent-playbook</code> then <code>claude plugin install kazi-ai-agent-playbook@kazi-playbook</code>.</td></tr>
         <tr><td>2</td><td>Install the skills your project type needs (page 17); the agent tells you which are missing.</td></tr>
-        <tr><td>3</td><td>Add one line to the project's <code>CLAUDE.md</code>: use the <code>agent-playbook</code> skill for every task and ask before installing anything.</td></tr>
-        <tr><td>4</td><td>Say "Run the preflight" (existing repo), or "Start Phase 0" (brand-new product).</td></tr>
-        <tr><td>5</td><td>Answer the one batched question; answers are saved in <code>docs/agent-profile.md</code>.</td></tr>
-        <tr><td>6</td><td>Write tasks with an outcome, how you'll know it's done, and the files in scope.</td></tr>
-        <tr><td>7</td><td>For a release, say "Run the release check" (add "for a public paid launch" to set how strict).</td></tr>
-        <tr><td>8</td><td>Something broke in production? Say so plainly: "payments are failing since the last deploy".</td></tr>
-        <tr><td>9</td><td>For a free beta and above, turn on the pre-commit hook and required CI.</td></tr>
-        <tr><td>10</td><td>Update: <code>claude plugin marketplace update kazi-playbook</code>, then <code>claude plugin update kazi-ai-agent-playbook@kazi-playbook</code>, then restart. Check with <code>claude plugin list</code>.</td></tr>
+        <tr><td>3</td><td>Say "Run the preflight" (existing repo), or "Start Phase 0" (brand-new product). If the project already has a <code>CLAUDE.md</code>, the agent adds its one pointer line on its own; with none yet, it asks first before creating one.</td></tr>
+        <tr><td>4</td><td>Answer the one batched question; answers are saved in <code>docs/agent-profile.md</code>.</td></tr>
+        <tr><td>5</td><td>Write tasks with an outcome, how you'll know it's done, and the files in scope.</td></tr>
+        <tr><td>6</td><td>For a release, say "Run the release check" (add "for a public paid launch" to set how strict).</td></tr>
+        <tr><td>7</td><td>Something broke in production? Say so plainly: "payments are failing since the last deploy".</td></tr>
+        <tr><td>8</td><td>For a free beta and above, turn on the pre-commit hook and required CI.</td></tr>
+        <tr><td>9</td><td>Update: <code>claude plugin marketplace update kazi-playbook</code>, then <code>claude plugin update kazi-ai-agent-playbook@kazi-playbook</code>, then restart. Check with <code>claude plugin list</code>.</td></tr>
       </tbody></table>
     </div>
     <div>
